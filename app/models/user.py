@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_image_url = db.Column(db.String(100))
-    status = db.Column(db.Enum(*STATUS), name='status')
+    status = db.Column(db.Enum('Status', *STATUS))
 
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now())

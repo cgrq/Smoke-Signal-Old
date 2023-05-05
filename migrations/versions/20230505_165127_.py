@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 1d0a773b8aa8
+Revision ID: 94d38283708b
 Revises: ffdc0a98111c
-Create Date: 2023-05-05 16:41:30.792438
+Create Date: 2023-05-05 16:51:27.663096
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1d0a773b8aa8'
+revision = '94d38283708b'
 down_revision = 'ffdc0a98111c'
 branch_labels = None
 depends_on = None
@@ -53,7 +53,7 @@ def upgrade():
     )
     op.create_table('team_memberships',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('status', sa.Enum('owner', 'moderator', 'member'), nullable=True),
+    sa.Column('status', sa.Enum('Status', 'owner', 'moderator', 'member'), nullable=True),
     sa.Column('user_joined', sa.DateTime(), nullable=False),
     sa.Column('team_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -63,7 +63,7 @@ def upgrade():
     )
     op.create_table('channel_memberships',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('type', sa.Enum('channel', 'direct_message'), nullable=True),
+    sa.Column('type', sa.Enum('Type', 'channel', 'direct_message'), nullable=True),
     sa.Column('user_joined', sa.DateTime(), nullable=False),
     sa.Column('channel_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -75,7 +75,7 @@ def upgrade():
         batch_op.add_column(sa.Column('first_name', sa.String(length=40), nullable=False))
         batch_op.add_column(sa.Column('last_name', sa.String(length=40), nullable=False))
         batch_op.add_column(sa.Column('profile_image_url', sa.String(length=100), nullable=True))
-        batch_op.add_column(sa.Column('status', sa.Enum('online', 'offline', 'away'), nullable=True))
+        batch_op.add_column(sa.Column('status', sa.Enum('Status', 'online', 'offline', 'away'), nullable=True))
         batch_op.add_column(sa.Column('created_at', sa.DateTime(), nullable=True))
         batch_op.add_column(sa.Column('updated_at', sa.DateTime(), nullable=True))
 
