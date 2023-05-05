@@ -14,7 +14,7 @@ class TeamMemberships(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # Table Keys
-    status = db.Column(db.Enum(*STATUS))
+    status = db.Column(db.Enum(*STATUS), name='status')
     user_joined = db.Column(db.DateTime, nullable=False,
                             default=datetime.now())
 
