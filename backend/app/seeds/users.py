@@ -1,3 +1,5 @@
+import json
+import random
 from app.models import db, User, environment, SCHEMA
 from sqlalchemy.sql import text
 
@@ -5,18 +7,22 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
 
-    #ADD THE FIELDS WE ADDED TO THE USER MODEL HERE!!!!!!!!!!!!!!!
+    # ADD THE FIELDS WE ADDED TO THE USER MODEL HERE!!!!!!!!!!!!!!!
+    f = open('user.json')
+    users = json.load(f)
 
-    demo = User(
-        username='Demo', first_name="demo", last_name="lition", hashed_password="password", profile_image_url="test.jpg", status="online", email='demo@aa.io', password='password')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+    for u in users:
+        user = User(
+            username=u['username'],
+            first_name=u['first_name'],
+            last_name=u['last_name'],
+            email=u['email'],
+            password=u['password'],
+            profile_image_url='test.com/images.jpeg',
+            status=random.choice(['online', 'offline', 'away']),
+        )
+        db.session.add(user)
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
     db.session.commit()
 
 
