@@ -1,5 +1,5 @@
 from datetime import datetime
-from .db import db, add_prefix_for_prod
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
 class Message(db.Model):
