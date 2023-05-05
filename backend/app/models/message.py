@@ -17,10 +17,9 @@ class Message(db.Model):
     message = db.Column(db.String(2000))
     sent_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
-    # Foregin Keys
+    # Foreign Keys
     user_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("users.id")), nullable=False)
-
     channel_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("users.id")), nullable=False)
 

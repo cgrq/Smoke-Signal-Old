@@ -30,6 +30,8 @@ class User(db.Model, UserMixin):
     # Foreign Keys
     teams = db.relationship(TeamMemberships, back_populates="teams")
     channels = db.relationship(ChannelMemberships, back_populates="channels")
+    channels = db.relationship(ChannelMemberships, back_populates="channels")
+
 
     @property
     def password(self):
