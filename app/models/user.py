@@ -24,13 +24,12 @@ class User(db.Model, UserMixin):
     profile_image_url = db.Column(db.String(100))
     status = db.Column(db.Enum(*STATUS, name='Status'))
 
-
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now())
 
     # Foreign Keys
-    teams = db.relationship(TeamMemberships, back_populates="teams")
-    channels = db.relationship(ChannelMemberships, back_populates="channels")
+    teams = db.relationship(TeamMemberships, back_populates="users")
+    channels = db.relationship(ChannelMemberships, back_populates="users")
 
     @property
     def password(self):
