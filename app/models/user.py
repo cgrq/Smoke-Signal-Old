@@ -1,9 +1,15 @@
+import enum
 from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .team_memberships import TeamMemberships
 from .channel_memberships import ChannelMemberships
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+
+class UserStatus(enum.Enum):
+    online = 'online'
+    offline = 'offline'
+    status = 'away'
 
 
 class User(db.Model, UserMixin):
@@ -12,7 +18,7 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    STATUS = ['online', 'offline', 'away']
+    # STATUS = ['online', 'offline', 'away']
 
     id = db.Column(db.Integer, primary_key=True)
 
@@ -22,7 +28,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_image_url = db.Column(db.String(100))
-    status = db.Column(db.Enum('Status', *STATUS))
+    status = db.Column(db.Enum(UserStatus))
 
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now())

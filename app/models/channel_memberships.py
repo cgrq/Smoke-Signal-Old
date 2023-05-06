@@ -1,6 +1,11 @@
+import enum
 from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
+
+class ChannelType(enum.Enum):
+    channel = 'channel'
+    direct_message = 'direct_message'
 
 class ChannelMemberships(db.Model):
     __tablename__ = 'channel_memberships'
@@ -8,13 +13,11 @@ class ChannelMemberships(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    TYPES = ['channel', 'direct_message']
-
     # Common Keys
     id = db.Column(db.Integer, primary_key=True)
 
     # Table Keys
-    type = db.Column(db.Enum('Type', *TYPES))
+    type = db.Column(db.Enum(ChannelType))
     user_joined = db.Column(db.DateTime, nullable=False,
                             default=datetime.now())
 
