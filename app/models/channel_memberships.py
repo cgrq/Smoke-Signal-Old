@@ -20,10 +20,10 @@ class ChannelMemberships(db.Model):
                             default=datetime.now())
 
     # Foreign Keys
-    channel_id = db.Column(db.Integer, db.ForeignKey(
-        'channels.id'), primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id'), primary_key=True)
+    # channel_id = db.Column(db.Integer, db.ForeignKey(
+    #     'channels.id'), primary_key=True)
+    # user_id = db.Column(db.Integer, db.ForeignKey(
+    #     'users.id'), primary_key=True)
 
-    channels = db.relationship("Channel", back_populates="users")
-    users = db.relationship("User", back_populates="channels")
+    # channels = db.relationship("Channel", back_populates="users")
+    # users = db.relationship("User", back_populates="channels")
