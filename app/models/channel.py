@@ -1,6 +1,6 @@
 from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from .channel_memberships import ChannelMemberships
+from .channel_memberships import ChannelMembership
 
 
 class Channel(db.Model):
@@ -19,7 +19,7 @@ class Channel(db.Model):
     # Foreign Keys
     team_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
 
-    users = db.relationship(ChannelMemberships, back_populates="channels")
+    users = db.relationship(ChannelMembership, back_populates="channels")
 
 
     # Common Keys

@@ -1,6 +1,6 @@
 from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from .team_memberships import TeamMemberships
+from .team_memberships import TeamMembership
 
 
 class Team(db.Model):
@@ -20,7 +20,7 @@ class Team(db.Model):
     image_url = db.Column(db.String(255))
 
     # Foreign Keys
-    users = db.relationship(TeamMemberships, back_populates="teams")
+    users = db.relationship(TeamMembership, back_populates="teams")
 
     # Methods
     def __repr__(self):
@@ -31,7 +31,7 @@ class Team(db.Model):
             "id": self.id,
             "name": self.name,
             "type": self.type,
-            "team_image_url": self.team_image_url,
+            "team_image_url": self.image_url,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }

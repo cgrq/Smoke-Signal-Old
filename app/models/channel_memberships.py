@@ -2,7 +2,7 @@ from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
-class ChannelMemberships(db.Model):
+class ChannelMembership(db.Model):
     __tablename__ = 'channel_memberships'
 
     if environment == "production":
@@ -21,9 +21,9 @@ class ChannelMemberships(db.Model):
 
     # Foreign Keys
     channel_id = db.Column(db.Integer, db.ForeignKey(
-        'channels.id'), primary_key=True)
+        'channels.id'))
     user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id'), primary_key=True)
+        'users.id'))
 
     channels = db.relationship("Channel", back_populates="users")
     users = db.relationship("User", back_populates="channels")
