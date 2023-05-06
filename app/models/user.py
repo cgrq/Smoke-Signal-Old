@@ -5,11 +5,12 @@ from .team_memberships import TeamMemberships
 from .channel_memberships import ChannelMemberships
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from .user_status import UserStatus
 
-class UserStatus(enum.Enum):
-    online = 'online'
-    offline = 'offline'
-    status = 'away'
+# class UserStatus(enum.Enum):
+#     online = 'online'
+#     offline = 'offline'
+#     status = 'away'
 
 
 class User(db.Model, UserMixin):

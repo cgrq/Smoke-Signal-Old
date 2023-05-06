@@ -1,11 +1,12 @@
 import enum
 from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .membership_status import MembershipStatus
 
-class MembershipStatus(enum.Enum):
-    owner = 'owner'
-    moderator = 'moderator'
-    member = 'member'
+# class MembershipStatus(enum.Enum):
+#     owner = 'owner'
+#     moderator = 'moderator'
+#     member = 'member'
 
 class TeamMemberships(db.Model):
     __tablename__ = 'team_memberships'
