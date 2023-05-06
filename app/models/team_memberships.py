@@ -19,10 +19,10 @@ class TeamMemberships(db.Model):
                             default=datetime.now())
 
     # Foreign Keys
-    team_id = db.Column(db.Integer, db.ForeignKey(
-        'teams.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id'))
+    # team_id = db.Column(db.Integer, db.ForeignKey(
+    #     'teams.id'), primary_key=True)
+    # user_id = db.Column(db.Integer, db.ForeignKey(
+    #     'users.id'), primary_key=True)
 
-    teams = db.relationship("Team", back_populates="users")
-    users = db.relationship("User", back_populates="teams")
+    # teams = db.relationship("Team", back_populates="teams")
+    # users = db.relationship("User", back_populates="users")

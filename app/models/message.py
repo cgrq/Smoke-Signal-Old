@@ -18,10 +18,10 @@ class Message(db.Model):
     sent_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     # Foreign Keys
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        add_prefix_for_prod("users.id")), nullable=False)
-    channel_id = db.Column(db.Integer, db.ForeignKey(
-        add_prefix_for_prod("users.id")), nullable=False)
+    # user_id = db.Column(db.Integer, db.ForeignKey(
+    #     add_prefix_for_prod("users.id")), nullable=False)
+    # channel_id = db.Column(db.Integer, db.ForeignKey(
+    #     add_prefix_for_prod("users.id")), nullable=False)
 
     # Methods
     def __repr__(self):
