@@ -21,9 +21,9 @@ class ChannelMembership(db.Model):
 
     # Foreign Keys
     channel_id = db.Column(db.Integer, db.ForeignKey(
-        'channels.id'))
+        add_prefix_for_prod('channels.id')))
     user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id'))
+        add_prefix_for_prod('users.id')))
 
     channels = db.relationship("Channel", back_populates="users")
     users = db.relationship("User", back_populates="channels")
