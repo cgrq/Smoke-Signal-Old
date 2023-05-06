@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d7e85cadd955
+Revision ID: 6c261cd19024
 Revises:
-Create Date: 2023-05-06 12:55:14.834094
+Create Date: 2023-05-06 13:39:09.700584
 
 """
 from alembic import op
@@ -12,8 +12,9 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
+
 # revision identifiers, used by Alembic.
-revision = 'd7e85cadd955'
+revision = '6c261cd19024'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -73,21 +74,21 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('status', sa.Enum('owner', 'moderator', 'member', name='Status'), nullable=True),
     sa.Column('user_joined', sa.DateTime(), nullable=False),
-    sa.Column('team_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('team_id', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['team_id'], ['teams.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id', 'team_id', 'user_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('channel_memberships',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('type', sa.Enum('channel', 'direct_message', name='Type'), nullable=True),
     sa.Column('user_joined', sa.DateTime(), nullable=False),
-    sa.Column('channel_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('channel_id', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['channel_id'], ['channels.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id', 'channel_id', 'user_id')
+    sa.PrimaryKeyConstraint('id')
     )
 
     if environment == "production":
