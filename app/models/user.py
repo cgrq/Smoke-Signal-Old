@@ -29,8 +29,8 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.now())
 
     # Foreign Keys
-    # teams = db.relationship(TeamMemberships, back_populates="teams")
-    # channels = db.relationship(ChannelMemberships, back_populates="channels")
+    teams = db.relationship(TeamMemberships, back_populates="teams")
+    channels = db.relationship(ChannelMemberships, back_populates="channels")
 
     @property
     def password(self):
