@@ -20,9 +20,9 @@ class TeamMembership(db.Model):
 
     # Foreign Keys
     team_id = db.Column(db.Integer, db.ForeignKey(
-        'teams.id'))
+        add_prefix_for_prod('teams.id')))
     user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id'))
+        add_prefix_for_prod('users.id')))
 
     teams = db.relationship("Team", back_populates="users")
     users = db.relationship("User", back_populates="teams")
