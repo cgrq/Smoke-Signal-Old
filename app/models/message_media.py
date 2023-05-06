@@ -13,8 +13,8 @@ class MessageMedia(db.Model):
     url = db.Column(db.String(255), nullable=False)
 
     # # Foreign Keys
-    # message_id = db.Column(db.Integer, db.ForeignKey(
-    #     add_prefix_for_prod("messages.id")), nullable=False)
+    message_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod("messages.id")), nullable=False)
 
     # Methods
     def __repr__(self):

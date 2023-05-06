@@ -19,7 +19,7 @@ class Channel(db.Model):
     # Foreign Keys
     team_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
 
-    users = db.relationship(ChannelMemberships, back_populates="users")
+    users = db.relationship(ChannelMemberships, back_populates="channels")
 
 
     # Common Keys
