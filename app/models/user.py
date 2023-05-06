@@ -24,6 +24,7 @@ class User(db.Model, UserMixin):
     profile_image_url = db.Column(db.String(100))
     status = db.Column(db.Enum(*STATUS, name='Status'))
 
+
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now())
 
