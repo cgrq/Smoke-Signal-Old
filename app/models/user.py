@@ -1,9 +1,15 @@
+import enum
 from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .team_memberships import TeamMemberships
 from .channel_memberships import ChannelMemberships
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+
+class UserStatus(enum.Enum):
+    online = 'online'
+    offline = 'offline'
+    status = 'away'
 
 
 class User(db.Model, UserMixin):
@@ -12,7 +18,7 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    STATUS = ['online', 'offline', 'away']
+    # STATUS = ['online', 'offline', 'away']
 
     id = db.Column(db.Integer, primary_key=True)
 

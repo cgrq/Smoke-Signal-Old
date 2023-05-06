@@ -1,6 +1,11 @@
+import enum
 from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
+class MembershipStatus(enum.Enum):
+    owner = 'owner'
+    moderator = 'moderator'
+    member = 'member'
 
 class TeamMemberships(db.Model):
     __tablename__ = 'team_memberships'
@@ -8,7 +13,7 @@ class TeamMemberships(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    STATUS = ['owner', 'moderator', 'member']
+    # STATUS = ['owner', 'moderator', 'member']
 
     # Common Keys
     id = db.Column(db.Integer, primary_key=True)
