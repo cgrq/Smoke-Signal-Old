@@ -1,7 +1,7 @@
 from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from .team_memberships import TeamMemberships
-from .channel_memberships import ChannelMemberships
+from .team_memberships import TeamMembership
+from .channel_memberships import ChannelMembership
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -28,8 +28,8 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.now())
 
     # Foreign Keys
-    teams = db.relationship(TeamMemberships, back_populates="users")
-    channels = db.relationship(ChannelMemberships, back_populates="users")
+    teams = db.relationship(TeamMembership, back_populates="users")
+    channels = db.relationship(ChannelMembership, back_populates="users")
 
     @property
     def password(self):

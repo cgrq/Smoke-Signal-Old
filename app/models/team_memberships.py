@@ -2,7 +2,7 @@ from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
-class TeamMemberships(db.Model):
+class TeamMembership(db.Model):
     __tablename__ = 'team_memberships'
 
     if environment == "production":
@@ -20,9 +20,9 @@ class TeamMemberships(db.Model):
 
     # Foreign Keys
     team_id = db.Column(db.Integer, db.ForeignKey(
-        'teams.id'), primary_key=True)
+        'teams.id'))
     user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id'), primary_key=True)
+        'users.id'))
 
     teams = db.relationship("Team", back_populates="users")
     users = db.relationship("User", back_populates="teams")
