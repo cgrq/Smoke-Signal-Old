@@ -20,6 +20,7 @@ class TeamMemberships(db.Model):
 
     # Table Keys
     status = db.Column(db.Enum(*STATUS, "Status"))
+
     user_joined = db.Column(db.DateTime, nullable=False,
                             default=datetime.now())
 

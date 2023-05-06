@@ -18,6 +18,7 @@ class ChannelMemberships(db.Model):
 
     # Table Keys
     type = db.Column(db.Enum(*TYPES, name='Type'))
+
     user_joined = db.Column(db.DateTime, nullable=False,
                             default=datetime.now())
 
