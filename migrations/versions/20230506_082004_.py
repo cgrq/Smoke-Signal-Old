@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 94d38283708b
+Revision ID: f1b7c2ba3df0
 Revises: ffdc0a98111c
-Create Date: 2023-05-05 16:51:27.663096
+Create Date: 2023-05-06 08:20:04.616062
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '94d38283708b'
+revision = 'f1b7c2ba3df0'
 down_revision = 'ffdc0a98111c'
 branch_labels = None
 depends_on = None
@@ -55,11 +55,11 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('status', sa.Enum('Status', 'owner', 'moderator', 'member'), nullable=True),
     sa.Column('user_joined', sa.DateTime(), nullable=False),
-    sa.Column('team_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('team_id', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['team_id'], ['teams.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id', 'team_id', 'user_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('channel_memberships',
     sa.Column('id', sa.Integer(), nullable=False),
