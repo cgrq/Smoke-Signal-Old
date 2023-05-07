@@ -17,7 +17,7 @@ class Channel(db.Model):
     image_url = db.Column(db.String(255))
 
     # Foreign Keys
-    team_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    team_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("teams.id")), nullable=False)
 
     users = db.relationship(ChannelMembership, back_populates="channels")
 

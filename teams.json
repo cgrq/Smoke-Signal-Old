@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Apple",
+    "type": "team",
+    "image_url": "https://i0.wp.com/decaldesignshop.com/wp-content/uploads/2015/05/logo_apple.jpg?fit=1000%2C1000&ssl=1"
+  },
+  {
+    "name": "App Academy",
+    "type": "team",
+    "image_url": "https://codingbootcamps.io/wp-content/uploads/App-Academy-2.png"
+  },
+  {
+    "name": "Harvard University",
+    "type": "team",
+    "image_url": "https://www.carynesplin.com/wp-content/uploads/images/Harvard_Wreath_Logo_1.png"
+  }
+]
