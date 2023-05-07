@@ -16,7 +16,6 @@ class Team(db.Model):
 
     # Table Keys
     name = db.Column(db.String(255), nullable=False)
-    type = db.Column(db.String(150))
     image_url = db.Column(db.String(255))
 
     # Foreign Keys
@@ -30,7 +29,6 @@ class Team(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "type": self.type,
             "team_image_url": self.image_url,
             "created_at": self.created_at,
             "updated_at": self.updated_at,

@@ -13,7 +13,6 @@ def seed_teams():
     for u in teams:
         team = Team(
             name=u['name'],
-            type=u['type'],
             image_url=u['image_url'],
         )
         db.session.add(team)
