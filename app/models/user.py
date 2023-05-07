@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    STATUS = ['online', 'offline', 'away']
+    # STATUS = ['online', 'offline', 'away']
 
     id = db.Column(db.Integer, primary_key=True)
 
@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_image_url = db.Column(db.String(100))
-    status = db.Column(db.Enum(*STATUS, name='Status'))
+    status = db.Column(db.String(100))
 
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now())

@@ -8,14 +8,10 @@ class ChannelMembership(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    TYPES = ['channel', 'direct_message']
-
     # Common Keys
     id = db.Column(db.Integer, primary_key=True)
 
     # Table Keys
-    type = db.Column(db.Enum(*TYPES, name='Type'))
-
     user_joined = db.Column(db.DateTime, nullable=False,
                             default=datetime.now())
 

@@ -8,13 +8,13 @@ class TeamMembership(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    STATUS = ['owner', 'moderator', 'member']
+    # STATUS = ['owner', 'moderator', 'member']
 
     # Common Keys
     id = db.Column(db.Integer, primary_key=True)
 
     # Table Keys
-    status = db.Column(db.Enum(*STATUS, name="Status"))
+    status = db.Column(db.String(100))
     user_joined = db.Column(db.DateTime, nullable=False,
                             default=datetime.now())
 
