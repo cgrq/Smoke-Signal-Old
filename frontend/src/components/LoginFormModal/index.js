@@ -21,6 +21,26 @@ function LoginFormModal() {
     }
   };
 
+  const loginDemoOne = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login("demo@aa.io", "password"));
+    if (data) {
+      setErrors(data);
+    } else {
+        closeModal()
+    }
+  }
+
+  const loginDemoTwo = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login("lstatton1@earthlink.net", "lXJpkz9"));
+    if (data) {
+      setErrors(data);
+    } else {
+        closeModal()
+    }
+  }
+
   return (
     <>
       <h1>Log In</h1>
@@ -50,6 +70,12 @@ function LoginFormModal() {
         </label>
         <button type="submit">Log In</button>
       </form>
+      <button onClick={loginDemoOne}>
+        Demo User-1
+      </button>
+      <button onClick={loginDemoTwo}>
+        Demo User-2
+      </button>
     </>
   );
 }
