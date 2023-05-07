@@ -39,10 +39,10 @@ def seed():
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_users()
-    undo_teams()
-    undo_channels()
-    undo_messages()
-    undo_team_memberships()
     undo_channel_memberships()
+    undo_team_memberships()
+    undo_messages()
+    undo_channels()
+    undo_teams()
+    undo_users()
     # Add other undo functions here

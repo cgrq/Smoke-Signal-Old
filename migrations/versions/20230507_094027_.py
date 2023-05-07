@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: eed96c05f45c
+Revision ID: 393ad64874d1
 Revises: 2b6ca9ab0c6e
-Create Date: 2023-05-07 08:51:23.161562
+Create Date: 2023-05-07 09:40:27.990876
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'eed96c05f45c'
+revision = '393ad64874d1'
 down_revision = '2b6ca9ab0c6e'
 branch_labels = None
 depends_on = None
@@ -21,9 +21,9 @@ def upgrade():
     with op.batch_alter_table('channel_memberships', schema=None) as batch_op:
         batch_op.drop_column('type')
 
-    # with op.batch_alter_table('channels', schema=None) as batch_op:
-    #     batch_op.drop_constraint(None, type_='foreignkey')
-    #     batch_op.create_foreign_key(None, 'teams', ['team_id'], ['id'])
+    with op.batch_alter_table('channels', schema=None) as batch_op:
+        batch_op.drop_constraint('fk_channels_team_id_users', type_='foreignkey')
+        batch_op.create_foreign_key(batch_op.f('fk_channels_team_id_teams'), 'teams', ['team_id'], ['id'])
 
     with op.batch_alter_table('team_memberships', schema=None) as batch_op:
         batch_op.alter_column('status',
@@ -54,9 +54,9 @@ def downgrade():
                type_=sa.VARCHAR(length=9),
                existing_nullable=True)
 
-    # with op.batch_alter_table('channels', schema=None) as batch_op:
-    #     batch_op.drop_constraint(None, type_='foreignkey')
-    #     batch_op.create_foreign_key(None, 'users', ['team_id'], ['id'])
+    with op.batch_alter_table('channels', schema=None) as batch_op:
+        batch_op.drop_constraint(batch_op.f('fk_channels_team_id_teams'), type_='foreignkey')
+        batch_op.create_foreign_key('fk_channels_team_id_users', 'users', ['team_id'], ['id'])
 
     with op.batch_alter_table('channel_memberships', schema=None) as batch_op:
         batch_op.add_column(sa.Column('type', sa.VARCHAR(length=14), nullable=True))
