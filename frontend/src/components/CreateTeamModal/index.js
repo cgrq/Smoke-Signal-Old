@@ -3,13 +3,12 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
 import InputField from "../InputField";
-import SelectField from "../SelectField/Index";
+import Button from "../Button";
 import "./CreateTeamModal.css";
 
 function CreateTeamModal() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-  const [type, setType] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
@@ -48,17 +47,20 @@ function CreateTeamModal() {
           required={true}
         />
 
-        <SelectField
-          label="Type"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          placeholder="Team name"
-          required={true}
+        <InputField
+          label="Team Image"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+          placeholder="Image to represent the team"
+          required={false}
         />
 
+        <Button
+          isFormElement={true}
+          name="Create Team"
+          disabled={false}
+        />
 
-
-        <button type="submit">Create Team</button>
       </form>
     </>
   );
