@@ -54,9 +54,9 @@ def downgrade():
                type_=sa.VARCHAR(length=9),
                existing_nullable=True)
 
-    with op.batch_alter_table('channels', schema=None) as batch_op:
-        batch_op.drop_constraint(None, type_='foreignkey')
-        batch_op.create_foreign_key(None, 'users', ['team_id'], ['id'])
+    # with op.batch_alter_table('channels', schema=None) as batch_op:
+    #     batch_op.drop_constraint(None, type_='foreignkey')
+    #     batch_op.create_foreign_key(None, 'users', ['team_id'], ['id'])
 
     with op.batch_alter_table('channel_memberships', schema=None) as batch_op:
         batch_op.add_column(sa.Column('type', sa.VARCHAR(length=14), nullable=True))
