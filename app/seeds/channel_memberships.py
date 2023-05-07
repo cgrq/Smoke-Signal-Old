@@ -12,7 +12,6 @@ def seed_channel_memberships():
 
     for u in channel_memberships:
         channel_membership = ChannelMembership(
-            type=u['type'],
             channel_id=u['channel_id'],
             user_id=u['user_id'],
         )
