@@ -11,6 +11,7 @@ function ProfileButton({ user }) {
   const ulRef = useRef();
 
   const openMenu = () => {
+    // console.log("profile button push -----------> ", showMenu)
     if (showMenu) return;
     setShowMenu(true);
   };
