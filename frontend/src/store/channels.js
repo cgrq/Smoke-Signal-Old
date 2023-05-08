@@ -91,6 +91,9 @@ export const createChannelThunk = (channel) => async (dispatch) => {
 
     return channel;
   }
+
+  const errors = response.json();
+  return errors;
 };
 
 // Edit channel

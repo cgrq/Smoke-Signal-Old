@@ -41,6 +41,10 @@ function App() {
           <Route path="/channels/new">
             <CreateChannel />
           </Route>
+
+          <Route path="/channels/:id">
+            <CreateChannel />
+          </Route>
         </Switch>
       )}
     </>

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getUserChannelsThunk } from "../../store/channels";
+import { deleteChannelThunk, getUserChannelsThunk } from "../../store/channels";
+import { Link } from "react-router-dom";
 
 const UserChannels = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const UserChannels = () => {
 
   useEffect(() => {
     dispatch(getUserChannelsThunk()).then(() => setIsLoaded(true));
-  }, [dispatch]);
+  }, [dispatch, isLoaded]);
 
   if (!isLoaded) return <>Not Loaded</>;
 
@@ -27,6 +28,19 @@ const UserChannels = () => {
           <p>Description: {channel.description}</p>
           <p>Image URL: {channel.imageUrl}</p>
           <p>Team ID: {channel.teamId}</p>
+
+          <Link to={`/channels/${channel.id}`}>Edit</Link>
+
+          <button
+            onClick={() => {
+              if (window.confirm("Are You Sure?")) {
+                dispatch(deleteChannelThunk(channel.id));
+                setIsLoaded(false);
+              }
+            }}
+          >
+            Delete
+          </button>
         </div>
       ))}
     </div>
