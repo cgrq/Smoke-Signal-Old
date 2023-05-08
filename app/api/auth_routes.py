@@ -76,7 +76,17 @@ def sign_up():
             profile_image_url=form.data['profileImageUrl']
         )
         db.session.add(user)
+
+        team_membership = TeamMembership(
+            status = 'member',
+            team_id = 4,
+            user_id = user.id
+        )
+
+        db.session.add(team_membership)
         db.session.commit()
+
+
         login_user(user)
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
