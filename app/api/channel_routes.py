@@ -40,8 +40,10 @@ def user_channels():
     channel_ids = [
         membership.channel_id for membership in user_channel_memberships]
 
-    print(f"CHANNEL IDS => {channel_ids}")
+    print(f"\nCHANNEL IDS => {channel_ids}\n")
 
-    channels = Channel.query.where(Channel.id in channel_ids)
+    channels = Channel.query.all()
+
+    channels = [channel for channel in channels if channel.id in channel_ids]
 
     return {'channels': [channel.to_dict() for channel in channels]}
