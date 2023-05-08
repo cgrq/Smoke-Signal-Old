@@ -13,16 +13,10 @@ function CreateTeamModal() {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
-  useEffect(()=>{
-    console.table({name,imageUrl})
-
-  }, [name,imageUrl])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log("ON CLICK SUCCESSFUL ~~~~~~~~~~~~~")
     const data = await dispatch(createNewTeamThunk({name, imageUrl}));
-    console.log(`🖥 ~ file: index.js:19 ~ handleSubmit ~ data:`, data)
     if (data) {
       setErrors(data);
     } else {
@@ -30,8 +24,6 @@ function CreateTeamModal() {
     }
 
   };
-
-
 
   return (
     <>

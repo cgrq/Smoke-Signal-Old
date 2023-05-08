@@ -29,7 +29,6 @@ export const getAllTeamsThunk = () => async (dispatch) => {
 // Create a new team thunk
 export const createNewTeamThunk = (payload) => async (dispatch) => {
     const { name, imageUrl } = payload
-    console.log(`🖥 ~ file: teams.js:32 ~ createNewTeamThunk ~ name, imageUrl:`, name, imageUrl)
     const response = await fetch('/api/teams/new', {
         method: 'POST',
         headers: {
@@ -37,11 +36,9 @@ export const createNewTeamThunk = (payload) => async (dispatch) => {
         },
         body: JSON.stringify({ name, imageUrl })
     });
-    console.log(`🖥 ~ file: teams.js:40 ~ createNewTeamThunk ~ response:`, response)
 
     if (response.ok) {
         const team = await response.json();
-        console.log(`🖥 ~ file: teams.js:44 ~ createNewTeamThunk ~ team:`, team)
         dispatch(createTeam(team));
         return null;
     } else {
@@ -63,7 +60,6 @@ const teamsReducer = (state = initialState, action) => {
         }
         case CREATE_TEAM: {
             const newState = {...state};
-            console.log(`🖥 ~ file: teams.js:67 ~ teamsReducer ~ action.payload:`, action.payload)
             newState[action.payload.team.id] = action.payload.team;
             return newState;
         }
