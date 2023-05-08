@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, session, request
+from flask import Blueprint, request, redirect
 from flask_login import login_required, current_user
 from ..forms import ChannelForm
 from app.models import db, Channel, ChannelMembership
@@ -59,7 +59,7 @@ def team_channels(team_id):
 
 @channel_routes.route('/new', methods=['POST'])
 @login_required
-def create_team():
+def create_channel():
     """
     POST new channel
     """
@@ -67,7 +67,7 @@ def create_team():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if not form.validate_on_submit():
-        return validation_errors_to_error_messages(form.errors)
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
     data = form.data
 
@@ -78,8 +78,14 @@ def create_team():
         image_url=data['imageUrl'],
         team_id=data['teamId'],
     )
-
     db.session.add(new_channel)
+
+    membership = ChannelMembership(
+        user_id=current_user.id,
+        channel_id=new_channel.id,
+    )
+    db.session.add(membership)
+
     db.session.commit()
 
     return {'channel': new_channel.to_dict()}
