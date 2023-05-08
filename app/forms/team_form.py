@@ -6,4 +6,4 @@ from app.models import Team
 
 class TeamForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
-    teamImageUrl = StringField('teamImageUrl', validators=[URL()])
+    imageUrl = StringField('imageUrl', validators=[URL()])
