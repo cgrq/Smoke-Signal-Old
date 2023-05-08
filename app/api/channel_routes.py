@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, session, request
+from flask import Blueprint, request, redirect
 from flask_login import login_required, current_user
 from ..forms import ChannelForm
 from app.models import db, Channel, ChannelMembership
