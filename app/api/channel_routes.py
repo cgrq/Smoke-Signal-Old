@@ -40,10 +40,89 @@ def user_channels():
     channel_ids = [
         membership.channel_id for membership in user_channel_memberships]
 
-    print(f"\nCHANNEL IDS => {channel_ids}\n")
-
-    channels = Channel.query.all()
-
-    channels = [channel for channel in channels if channel.id in channel_ids]
+    channels = [channel for channel in Channel.query.all()
+                if channel.id in channel_ids]
 
     return {'channels': [channel.to_dict() for channel in channels]}
+
+
+@channel_routes.route('/team/<int:team_id>')
+@login_required
+def team_channels(team_id):
+    """
+    GET team channels
+    """
+    channels = Channel.query.all()
+
+    return {'channels': [channel.to_dict() for channel in channels if channel.team_id == team_id]}
+
+
+@channel_routes.route('/new', methods=['POST'])
+@login_required
+def create_team():
+    """
+    POST new channel
+    """
+    form = ChannelForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if not form.validate_on_submit():
+        return validation_errors_to_error_messages(form.errors)
+
+    data = form.data
+
+    new_channel = Channel(
+        name=data['name'],
+        description=data['description'],
+        type=data['type'],
+        image_url=data['imageUrl'],
+        team_id=data['teamId'],
+    )
+
+    db.session.add(new_channel)
+    db.session.commit()
+
+    return {'channel': new_channel.to_dict()}
+
+
+@channel_routes.route('/<int:channel_id>', methods=['PUT'])
+@login_required
+def edit_channel(channel_id):
+    """
+    PUT edit a channel
+    """
+    form = ChannelForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if not form.validate_on_submit():
+        return validation_errors_to_error_messages(form.errors)
+
+    channel = Channel.query.get(channel_id)
+
+    data = form.data
+
+    channel.name = data['name']
+    channel.description = data['description']
+    channel.type = data['type']
+    channel.image_url = data['imageUrl']
+    channel.team_id = data['teamId']
+
+    db.session.commit()
+
+    return {'channel': channel.to_dict()}
+
+
+@channel_routes.route('/<int:channel_id>/delete', methods=['DELETE'])
+@login_required
+def delete_route(channel_id):
+    """
+    DELETE channel
+    """
+    channel = Channel.query.get(channel_id)
+
+    if not channel:
+        return {'error': 'channel not found'}
+
+    db.session.delete(channel)
+    db.session.commit()
+    return {'message': 'channel successfully deleted.'}

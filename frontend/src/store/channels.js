@@ -113,7 +113,7 @@ export const editChannelThunk = (channel) => async (dispatch) => {
 
 // Delete channel
 export const deleteChannelThunk = (channelId) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${channelId}`, {
+  const response = await fetch(`/api/channels/${channelId}/delete`, {
     method: "DELETE",
   });
 
