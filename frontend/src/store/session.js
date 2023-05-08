@@ -90,6 +90,7 @@ export const signUp = (username, email, password, firstName, lastName, profileIm
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
+
 		if (data.errors) {
 			return data.errors;
 		}
