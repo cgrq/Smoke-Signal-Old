@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from ..forms import ChannelForm
-from app.models import Channel, db
+from app.models import db, Channel, ChannelMembership
 
 channel_routes = Blueprint('channels', __name__)
 
@@ -23,4 +23,25 @@ def all_channels():
     GET all channels
     """
     channels = Channel.query.all()
+    return {'channels': [channel.to_dict() for channel in channels]}
+
+
+@channel_routes.route('/user')
+@login_required
+def user_channels():
+    """
+    GET user channels
+    """
+    user_id = current_user.id
+
+    user_channel_memberships = ChannelMembership.query.where(
+        ChannelMembership.user_id == user_id)
+
+    channel_ids = [
+        membership.channel_id for membership in user_channel_memberships]
+
+    print(f"CHANNEL IDS => {channel_ids}")
+
+    channels = Channel.query.where(Channel.id in channel_ids)
+
     return {'channels': [channel.to_dict() for channel in channels]}

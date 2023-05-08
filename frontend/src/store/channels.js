@@ -52,8 +52,8 @@ export const getAllChannelsThunk = () => async (dispatch) => {
 };
 
 // Get user channels
-export const getUserChannelsThunk = (userId) => async (dispatch) => {
-  const response = await fetch(`/api/channels/user/${userId}`);
+export const getUserChannelsThunk = () => async (dispatch) => {
+  const response = await fetch(`/api/channels/user`);
 
   if (response.ok) {
     const { channels } = await response.json();
