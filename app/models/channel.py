@@ -9,6 +9,10 @@ class Channel(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+    # Common Keys
+    id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     # Table Keys
     name = db.Column(db.String(255), nullable=False)
@@ -17,17 +21,23 @@ class Channel(db.Model):
     image_url = db.Column(db.String(255))
 
     # Foreign Keys
-    team_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("teams.id")), nullable=False)
+    team_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod("teams.id")), nullable=False)
 
     users = db.relationship(ChannelMembership, back_populates="channels")
 
-
-    # Common Keys
-    id = db.Column(db.Integer, primary_key=True)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
-
-
     # Methods
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'type': self.type,
+            'imageUrl': self.image_url,
+            'teamId': self.team_id,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at,
+        }
+
     def __repr__(self):
         return f'<Channel id:{self.id}, name:{self.name} :: {self.created_at}>'
