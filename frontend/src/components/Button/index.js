@@ -1,10 +1,9 @@
 
 
-function Button({ name, disabled, isFormElement = false, onClick = false }) {
+function Button({ name, disabled, isFormElement = false }) {
     return (
         <button
-            type={isFormElement ? "submit" : "button"}
-            onClick={isFormElement ? null : onClick}
+            type={"submit"}
             disabled={disabled}
         >
             {name}

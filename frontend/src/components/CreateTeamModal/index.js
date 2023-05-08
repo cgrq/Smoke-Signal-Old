@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { signUp } from "../../store/session";
+import { createNewTeamThunk } from "../../store/teams";
 import InputField from "../InputField";
 import Button from "../Button";
 import "./CreateTeamModal.css";
@@ -13,26 +13,30 @@ function CreateTeamModal() {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
+  useEffect(()=>{
+    console.table({name,imageUrl})
+
+  }, [name,imageUrl])
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (password === confirmPassword) {
-      const data = await dispatch(signUp(username, email, password, firstName, lastName, profileImageUrl));
-      if (data) {
-        setErrors(data);
-      } else {
-        closeModal();
-      }
+    e.preventDefault()
+    console.log("ON CLICK SUCCESSFUL ~~~~~~~~~~~~~")
+    const data = await dispatch(createNewTeamThunk({name, imageUrl}));
+    console.log(`🖥 ~ file: index.js:19 ~ handleSubmit ~ data:`, data)
+    if (data) {
+      setErrors(data);
     } else {
-      setErrors([
-        "Confirm Password field must be the same as the Password field",
-      ]);
+      closeModal();
     }
+
   };
+
+
 
   return (
     <>
       <h1>Create a new team!</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e)=>handleSubmit(e)}>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
@@ -55,11 +59,7 @@ function CreateTeamModal() {
           required={false}
         />
 
-        <Button
-          isFormElement={true}
-          name="Create Team"
-          disabled={false}
-        />
+        <button type="submit">Create Team</button>
 
       </form>
     </>
