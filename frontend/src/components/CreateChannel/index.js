@@ -5,12 +5,11 @@ import {
   editChannelThunk,
   getAllChannelsThunk,
 } from "../../store/channels";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const CreateChannel = () => {
+const CreateChannel = ({ id }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { id } = useParams();
   const allChannels = useSelector((state) => state.channels.allChannels);
 
   const [isLoaded, setIsLoaded] = useState(false);

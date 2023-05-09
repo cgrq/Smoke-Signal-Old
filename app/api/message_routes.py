@@ -76,6 +76,7 @@ def edit_message(message_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if not form.validate_on_submit():
+        print(form.errors)
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
     message = Message.query.get(message_id)
@@ -83,7 +84,6 @@ def edit_message(message_id):
     data = form.data
 
     message.message = data['message']
-    message.channel_id = data['channelId']
 
     db.session.commit()
 
