@@ -41,12 +41,8 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
-        user_teams = []
-        teams = Team.query.join(TeamMembership).filter_by(user_id = user.id).all()
-        for team in teams:
-            user_teams.append({ "id": team.id, "name": team.name, "image_url": team.image_url })
-        user_dict = user.to_dict()
-        return {"user": { **user_dict, "teams": user_teams }}
+        
+        return {"user": user.to_dict()}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -76,6 +72,7 @@ def sign_up():
             profile_image_url=form.data['profileImageUrl']
         )
         db.session.add(user)
+        db.session.commit()
 
         team_membership = TeamMembership(
             status = 'member',
