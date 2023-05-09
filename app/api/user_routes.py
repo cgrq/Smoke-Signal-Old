@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User
+from app.models import User, Team, db
 
 user_routes = Blueprint('users', __name__)
 
@@ -22,4 +22,6 @@ def user(id):
     Query for a user by id and returns that user in a dictionary
     """
     user = User.query.get(id)
+    # print('disssssss')
+    # print(user_teams)
     return user.to_dict()

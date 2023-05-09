@@ -6,7 +6,7 @@ import channelsReducer from "./channels";
 
 const rootReducer = combineReducers({
   session,
-  teamsReducer,
+  teams: teamsReducer,
   channelsReducer,
 });
 
