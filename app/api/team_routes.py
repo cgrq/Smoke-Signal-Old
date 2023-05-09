@@ -67,6 +67,8 @@ def team_id(id):
     Route to get a single team by team id
     """
     team = Team.query.get(id)
+    if not team:
+        return { "errors": "Team does not exist" }
     return {"team":team.to_dict()}
 
 

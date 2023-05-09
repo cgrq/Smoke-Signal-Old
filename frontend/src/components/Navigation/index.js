@@ -17,7 +17,7 @@ function Navigation({ isLoaded }) {
   const userTeams = useSelector((state) => state.teams.userTeams);
 
   useEffect(() => {
-    if(sessionUser) {
+    if(sessionUser && sessionUser.id) {
       dispatch(getUserTeamsThunk(sessionUser.id))
       dispatch(getCurrentTeamThunk(currentTeamId));
     }

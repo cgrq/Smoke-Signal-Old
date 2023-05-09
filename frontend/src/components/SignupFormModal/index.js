@@ -24,6 +24,7 @@ function SignupFormModal() {
       if (data) {
         setErrors(data);
       } else {
+        
         closeModal();
       }
     } else {
