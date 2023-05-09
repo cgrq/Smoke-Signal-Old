@@ -7,7 +7,7 @@ function SelectTeamField({ label, value, onChange, choices, placeholder }) {
     return (
         <>
             <div>
-                <label>
+                <label className="select-team-field-label">
                     {label}
                 </label>
                 <select

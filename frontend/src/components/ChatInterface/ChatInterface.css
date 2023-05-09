@@ -1,0 +1,44 @@
+@import url("./MessageFeed.css");
+@import url("./MessageInputs.css");
+@import url("./SearchNav.css");
+
+/* Main */
+
+.chat-interface-main-wrapper{
+    margin-top:40px !important;
+    display:flex;
+    flex-flow:row nowrap;
+    margin:0 auto;
+    justify-content: center;
+    /* border-radius: 20px !important;
+    overflow: hidden !important; */
+}
+.chat-interface-main-wrapper ul li{
+    list-style: none;
+}
+.chat-interface-main-column{
+    background-color: rgb(42, 42, 42);
+    display:flex;
+    flex-flow:column nowrap;
+}
+
+
+/* Left Column */
+
+
+.chat-interface-main-left-column{
+    padding:30px;
+    width:300px;
+}
+.chat-interface-team-management-wrapper{
+    display:flex;
+    flex-flow:column;
+}
+
+/* Right Column */
+
+
+.chat-interface-main-right-column{
+    width:1000px;
+
+}
