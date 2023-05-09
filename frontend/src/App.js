@@ -7,6 +7,7 @@ import { getAllTeamsThunk } from "./store/teams";
 import Navigation from "./components/Navigation";
 import UserChannels from "./components/UserChannels";
 import CreateChannel from "./components/CreateChannel";
+import ViewChannel from "./components/ViewChannel";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,10 @@ function App() {
 
           <Route path="/channels/new">
             <CreateChannel />
+          </Route>
+
+          <Route path={`/channels/v/:id`}>
+            <ViewChannel />
           </Route>
 
           <Route path="/channels/:id">
