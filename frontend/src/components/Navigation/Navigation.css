@@ -1,6 +1,10 @@
 .profile-dropdown {
   position: absolute;
 }
+.profile-dropdown li, .profile-dropdown a{
+  color:black !important;
+
+}
 
 .hidden {
   display: none;
