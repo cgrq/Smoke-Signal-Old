@@ -11,7 +11,7 @@ const CreateChannel = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
-  const allChannels = useSelector((state) => state.channelsReducer.allChannels);
+  const allChannels = useSelector((state) => state.channels.allChannels);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [name, setName] = useState("");

@@ -8,7 +8,7 @@ const UserChannels = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const channels = useSelector((state) => state.channelsReducer.userChannels);
+  const channels = useSelector((state) => state.channels.userChannels);
 
   useEffect(() => {
     dispatch(getUserChannelsThunk()).then(() => setIsLoaded(true));

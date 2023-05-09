@@ -49,6 +49,9 @@ export const getAllChannelsThunk = () => async (dispatch) => {
 
     return channels;
   }
+
+  const errors = await response.json();
+  return errors;
 };
 
 // Get user channels
@@ -61,6 +64,9 @@ export const getUserChannelsThunk = () => async (dispatch) => {
 
     return channels;
   }
+
+  const errors = await response.json();
+  return errors;
 };
 
 // Get team channels
@@ -73,6 +79,9 @@ export const getTeamChannelsThunk = (teamId) => async (dispatch) => {
 
     return channels;
   }
+
+  const errors = await response.json();
+  return errors;
 };
 
 // Create channel
@@ -112,6 +121,9 @@ export const editChannelThunk = (channel) => async (dispatch) => {
 
     return channel;
   }
+
+  const errors = response.json();
+  return errors;
 };
 
 // Delete channel
@@ -126,6 +138,9 @@ export const deleteChannelThunk = (channelId) => async (dispatch) => {
 
     return deleteSuccessMessage;
   }
+
+  const errors = response.json();
+  return errors;
 };
 
 // Channel reducer
