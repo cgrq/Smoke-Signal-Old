@@ -2,21 +2,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { deleteChannelThunk, getUserChannelsThunk } from "../../store/channels";
 import { Link } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import CreateChannel from "../CreateChannel";
 
 const UserChannels = () => {
   const dispatch = useDispatch();
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const channels = useSelector((state) => state.channelsReducer.userChannels);
+  const channels = useSelector((state) => state.channels.userChannels);
 
   useEffect(() => {
     dispatch(getUserChannelsThunk()).then(() => setIsLoaded(true));
   }, [dispatch, isLoaded]);
 
   if (!isLoaded) return <>Not Loaded</>;
-
-  console.log(channels);
 
   return (
     <div>
@@ -29,7 +29,12 @@ const UserChannels = () => {
           <p>Image URL: {channel.imageUrl}</p>
           <p>Team ID: {channel.teamId}</p>
 
-          <Link to={`/channels/${channel.id}`}>Edit</Link>
+          <OpenModalButton
+            buttonText={"Edit"}
+            modalComponent={<CreateChannel id={channel.id} />}
+          />
+
+          <Link to={`/channels/${channel.id}`}>View</Link>
 
           <button
             onClick={() => {

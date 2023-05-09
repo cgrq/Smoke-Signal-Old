@@ -8,6 +8,7 @@ import ProfileButton from "./ProfileButton";
 import SelectTeamField from "../SelectTeamField/Index";
 import "./Navigation.css";
 import DeleteTeamModal from "../DeleteTeamModal";
+import CreateChannel from "../CreateChannel";
 
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
@@ -17,13 +18,11 @@ function Navigation({ isLoaded }) {
   const userTeams = useSelector((state) => state.teams.userTeams);
 
   useEffect(() => {
-    if(sessionUser && sessionUser.id) {
-      dispatch(getUserTeamsThunk(sessionUser.id))
+    if (sessionUser) {
+      dispatch(getUserTeamsThunk(sessionUser.id));
       dispatch(getCurrentTeamThunk(currentTeamId));
     }
-
   }, [sessionUser]);
-
 
   const handleTeamSelect = async (e) => {
     setCurrentTeamId(e.target.value);
@@ -52,6 +51,7 @@ function Navigation({ isLoaded }) {
               placeholder="Choose team"
             />
           </li>
+
           <li>
             <OpenModalButton
               buttonText="Update current team"
@@ -60,14 +60,14 @@ function Navigation({ isLoaded }) {
               }
             />
           </li>
+
           <li>
             <OpenModalButton
               buttonText="Delete current team"
-              modalComponent={
-                <DeleteTeamModal />
-              }
+              modalComponent={<DeleteTeamModal />}
             />
           </li>
+
           <li>
             <OpenModalButton
               buttonText="Create a Team"
@@ -76,12 +76,13 @@ function Navigation({ isLoaded }) {
               }
             />
           </li>
+
+          <OpenModalButton
+            buttonText={"Create a Channel"}
+            modalComponent={<CreateChannel />}
+          />
         </>
       ) : null}
-
-      <li>
-        <Link to={`/channels/new`}>Create New Channel</Link>
-      </li>
 
       {isLoaded && (
         <li>
