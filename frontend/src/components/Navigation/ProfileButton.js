@@ -4,7 +4,6 @@ import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import CreateTeamModal from "../CreateTeamModal";
 import { Link } from "react-router-dom";
 
 function ProfileButton({ user }) {
@@ -71,11 +70,6 @@ function ProfileButton({ user }) {
               modalComponent={<SignupFormModal />}
             />
 
-            <OpenModalButton
-              buttonText="Create a Team"
-              onItemClick={closeMenu}
-              modalComponent={<CreateTeamModal />}
-            />
           </>
         )}
       </ul>

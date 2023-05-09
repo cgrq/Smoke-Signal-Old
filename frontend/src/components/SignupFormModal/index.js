@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { getCurrentTeamThunk } from "../../store/teams";
 import { signUp } from "../../store/session";
 import "./SignupForm.css";
 
@@ -20,6 +21,7 @@ function SignupFormModal() {
     e.preventDefault();
     if (password === confirmPassword) {
       const data = await dispatch(signUp(username, email, password, firstName, lastName, profileImageUrl));
+      await dispatch()
       if (data) {
         setErrors(data);
       } else {

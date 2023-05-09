@@ -1,22 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { createNewTeamThunk } from "../../store/teams";
+import { createNewTeamThunk, updateTeamThunk, getAllTeamsThunk } from "../../store/teams";
 import InputField from "../InputField";
 import Button from "../Button";
-import "./CreateTeamModal.css";
+import "./TeamFormModal.css";
 
-function CreateTeamModal() {
+function TeamFormModal({ type, title }) {
   const dispatch = useDispatch();
+  const currentTeam = useSelector(state => state.teams.currentTeam);
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
+  useEffect(() => {
+    if (type === "update" && currentTeam) {
+      setName(currentTeam.name);
+      setImageUrl(currentTeam.image_url);
+    }
+  }, [currentTeam]);
+
+  useEffect(() => {
+    dispatch(getAllTeamsThunk())
+  }, [currentTeam]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const data = await dispatch(createNewTeamThunk({name, imageUrl}));
+    e.preventDefault();
+
+    let data;
+    if (type === 'create') {
+      data = await dispatch(createNewTeamThunk({ name, imageUrl }));
+    } else {
+      data = await dispatch(updateTeamThunk({ id: currentTeam.id, name, imageUrl }));
+    }
+
     if (data) {
       setErrors(data);
     } else {
@@ -27,7 +45,7 @@ function CreateTeamModal() {
 
   return (
     <>
-      <h1>Create a new team!</h1>
+      <h1>{title}</h1>
       <form onSubmit={(e)=>handleSubmit(e)}>
         <ul>
           {errors.map((error, idx) => (
@@ -51,11 +69,11 @@ function CreateTeamModal() {
           required={false}
         />
 
-        <button type="submit">Create Team</button>
+        <button type="submit">{type === 'create' ? 'Create ' : 'Update '}Team</button>
 
       </form>
     </>
   );
 }
 
-export default CreateTeamModal;
+export default TeamFormModal;
