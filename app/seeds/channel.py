@@ -7,7 +7,7 @@ from sqlalchemy.sql import text
 def seed_channels():
 
     # ADD THE FIELDS WE ADDED TO THE USER MODEL HERE!!!!!!!!!!!!!!!
-    f = open('channels.json')
+    f = open('seed_data/channels.json')
     channels = json.load(f)
 
     for u in channels:

@@ -7,7 +7,7 @@ from sqlalchemy.sql import text
 def seed_messages():
 
     # ADD THE FIELDS WE ADDED TO THE USER MODEL HERE!!!!!!!!!!!!!!!
-    f = open('messages.json')
+    f = open('seed_data/messages.json')
     messages = json.load(f)
 
     for u in messages:
