@@ -50,3 +50,12 @@ def new_team():
     db.session.commit()
 
     return {"team":team.to_dict()}
+
+
+@team_routes.route('/<int:id>')
+def team_id(id):
+    """
+    Route to get a single team by team id
+    """
+    team = Team.query.get(id)
+    return team.to_dict()
