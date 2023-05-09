@@ -29,7 +29,7 @@ def user_messages():
     return {'messages': [message.to_dict() for message in messages]}
 
 
-@message_routes.route('/<int:channel_id>')
+@message_routes.route('/channel/<int:channel_id>')
 @login_required
 def channel_messages(channel_id):
     """

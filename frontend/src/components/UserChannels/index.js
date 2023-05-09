@@ -31,6 +31,8 @@ const UserChannels = () => {
 
           <Link to={`/channels/${channel.id}`}>Edit</Link>
 
+          <Link to={`/channels/v/${channel.id}`}>View</Link>
+
           <button
             onClick={() => {
               if (window.confirm("Are You Sure?")) {
