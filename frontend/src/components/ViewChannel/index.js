@@ -8,6 +8,8 @@ import {
 } from "../../store/messages";
 import InputField from "../InputField";
 import Button from "../Button";
+import OpenModalButton from "../OpenModalButton";
+import EditMessage from "../EditMessage";
 
 const ViewChannel = () => {
   const dispatch = useDispatch();
@@ -47,16 +49,23 @@ const ViewChannel = () => {
             <p>{message.message}</p>
 
             {Number(message.user_id) === Number(user.id) && (
-              <button
-                onClick={(e) => {
-                  if (window.confirm("Are you sure?")) {
-                    dispatch(deleteMessageThunk(message.id));
-                    setIsLoaded(false);
-                  }
-                }}
-              >
-                Delete?
-              </button>
+              <>
+                <button
+                  onClick={(e) => {
+                    if (window.confirm("Are you sure?")) {
+                      dispatch(deleteMessageThunk(message.id));
+                      setIsLoaded(false);
+                    }
+                  }}
+                >
+                  Delete?
+                </button>
+
+                <OpenModalButton
+                  buttonText={"Edit"}
+                  modalComponent={<EditMessage message={message} />}
+                />
+              </>
             )}
           </div>
         </div>

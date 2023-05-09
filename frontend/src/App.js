@@ -30,16 +30,8 @@ function App() {
             <UserChannels />
           </Route>
 
-          <Route path="/channels/new">
-            <CreateChannel />
-          </Route>
-
-          <Route path={`/channels/v/:id`}>
+          <Route path={`/channels/:id`}>
             <ViewChannel />
-          </Route>
-
-          <Route path="/channels/:id">
-            <CreateChannel />
           </Route>
         </Switch>
       )}

@@ -44,7 +44,11 @@ function ProfileButton({ user }) {
       <button onClick={openMenu}>
         <i className="fas fa-user-circle" />
       </button>
-      <ul style={{backgroundColor: "white", border: "1px solid black"}} className={ulClassName} ref={ulRef}>
+      <ul
+        style={{ backgroundColor: "white", border: "1px solid black" }}
+        className={ulClassName}
+        ref={ulRef}
+      >
         {user ? (
           <>
             <li>{user.username}</li>
@@ -69,7 +73,6 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-
           </>
         )}
       </ul>
