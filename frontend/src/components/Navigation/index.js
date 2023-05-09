@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getCurrentTeamThunk } from "../../store/teams";
+import { getCurrentTeamThunk, getUserTeamsThunk } from "../../store/teams";
 import OpenModalButton from "../OpenModalButton";
 import TeamFormModal from "../TeamFormModal";
 import ProfileButton from "./ProfileButton";
 import SelectTeamField from "../SelectTeamField/Index";
 import "./Navigation.css";
+import DeleteTeamModal from "../DeleteTeamModal";
 
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
-  const [currentTeamId, setCurrentTeamId] = useState(0);
+  const [currentTeamId, setCurrentTeamId] = useState(4);
   const [errors, setErrors] = useState({});
-
   const sessionUser = useSelector((state) => state.session.user);
-  const sessionUserTeams = useSelector(
-    (state) => state.session.user && state.session.user.teams
-  );
+  const userTeams = useSelector((state) => state.teams.userTeams);
 
   useEffect(() => {
-    if (sessionUser && sessionUser.teams) {
-      const teamId = sessionUser.teams[sessionUser.teams.length - 1].id;
-      setCurrentTeamId(() => teamId);
-      dispatch(getCurrentTeamThunk(teamId));
+    if(sessionUser) {
+      dispatch(getUserTeamsThunk(sessionUser.id))
+      dispatch(getCurrentTeamThunk(currentTeamId));
     }
-  }, [sessionUser, sessionUserTeams]);
+
+  }, [sessionUser]);
+
 
   const handleTeamSelect = async (e) => {
     setCurrentTeamId(e.target.value);
@@ -42,14 +41,14 @@ function Navigation({ isLoaded }) {
           Home
         </NavLink>
       </li>
-      {sessionUser ? (
+      {sessionUser && userTeams ? (
         <>
           <li>
             <SelectTeamField
               label="Select team"
               value={currentTeamId}
               onChange={handleTeamSelect}
-              choices={sessionUser.teams}
+              choices={userTeams}
               placeholder="Choose team"
             />
           </li>
@@ -58,6 +57,14 @@ function Navigation({ isLoaded }) {
               buttonText="Update current team"
               modalComponent={
                 <TeamFormModal type="update" title="Update team" />
+              }
+            />
+          </li>
+          <li>
+            <OpenModalButton
+              buttonText="Delete current team"
+              modalComponent={
+                <DeleteTeamModal />
               }
             />
           </li>

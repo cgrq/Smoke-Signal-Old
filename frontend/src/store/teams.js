@@ -1,6 +1,7 @@
 // Action type constants
 const ADD_TEAMS = 'teams/ADD_TEAMS';
 const ADD_CURRENT_TEAM = 'teams/ADD_CURRENT_TEAM';
+const ADD_USER_TEAMS = 'teams/ADD_USER_TEAMS'
 
 
 // Action creators
@@ -12,6 +13,10 @@ const addAllTeams = (teams) => ({
 const addCurrentTeam = (team) => ({
     type: ADD_CURRENT_TEAM,
     payload: team
+});
+const addUserTeams = (teams) => ({
+    type: ADD_USER_TEAMS,
+    payload: teams
 });
 
 // Thunk action creators
@@ -58,6 +63,20 @@ export const getCurrentTeamThunk = (id) => async (dispatch) => {
     }
 };
 
+
+// Get teams that users belong to by user id
+export const getUserTeamsThunk = (id) => async (dispatch) => {
+    const response = await fetch(`/api/users/${id}/teams`);
+    if (response.ok) {
+        const teams = await response.json();
+        dispatch(addUserTeams(teams.userTeams));
+        return null;
+    } else {
+        const errorResponse = await response.json();
+        return errorResponse.errors;
+    }
+};
+
 // Update a team thunk
 export const updateTeamThunk = (team) => async (dispatch) => {
     const { id, name, imageUrl } = team;
@@ -81,12 +100,12 @@ export const updateTeamThunk = (team) => async (dispatch) => {
 
 // Delete a team thunk
 export const deleteTeamThunk = (id) => async (dispatch) => {
+    console.log("BEFORE!")
     const response = await fetch(`/api/teams/${id}/delete`, {
-        method: 'DELETE',
-        headers: {
-            "Content-Type": "application/json"
-        }
+        method: 'DELETE'
     });
+    console.log("AFTER!")
+
 
     if (response.ok) {
         const team = await response.json();
@@ -99,18 +118,25 @@ export const deleteTeamThunk = (id) => async (dispatch) => {
 };
 
 // Teams reducer
-const initialState = { allTeams: {}, currentTeam: null };
+const initialState = { allTeams: {}, currentTeam: null, userTeams: [] };
 const teamsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TEAMS: {
-            const newState = {...state, allTeams: {...state.allTeams}};
+            const newState = { ...state, allTeams: { ...state.allTeams } };
             action.payload.teams.forEach(team => {
                 newState.allTeams[team.id] = team
             });
             return newState;
         }
+        case ADD_USER_TEAMS: {
+            const newState = { ...state, userTeams: [] };
+            action.payload.forEach(team => {
+                newState.userTeams[team.id] = team
+            });
+            return newState;
+        }
         case ADD_CURRENT_TEAM: {
-            const newState = {...state, currentTeam: {...state.currentTeam}};
+            const newState = { ...state, currentTeam: { ...state.currentTeam } };
             newState.currentTeam = action.payload.team;
             return newState;
         }

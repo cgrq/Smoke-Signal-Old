@@ -94,6 +94,7 @@ def update_team(id):
     return {"team":team.to_dict()}
 
 @team_routes.route('/<int:id>/delete', methods=['DELETE'])
+@login_required
 def delete_team(id):
     """
     Route to delete a single team by team id
@@ -101,3 +102,7 @@ def delete_team(id):
     team = Team.query.get(id)
     db.session.delete(team)
     db.session.commit()
+
+    defaultTeam = Team.query.get(4)
+
+    return {"team":defaultTeam.to_dict()}
