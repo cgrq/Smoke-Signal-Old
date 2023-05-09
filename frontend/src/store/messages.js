@@ -65,7 +65,7 @@ export const getUserMessagesThunk = () => async (dispatch) => {
 
 // Create new message
 export const createMessageThunk = (message) => async (dispatch) => {
-  const response = await fetch(`/api/messages`, {
+  const response = await fetch(`/api/messages/new`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(message),
@@ -103,7 +103,9 @@ export const editMessageThunk = (message) => async (dispatch) => {
 
 // Delete message
 export const deleteMessageThunk = (messageId) => async (dispatch) => {
-  const response = await fetch(`/api/messages/${messageId}/delete`);
+  const response = await fetch(`/api/messages/${messageId}/delete`, {
+    method: "DELETE",
+  });
 
   if (response.ok) {
     const successMessage = await response.json();
