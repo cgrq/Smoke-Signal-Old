@@ -104,7 +104,7 @@ export const signUp =
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-			return { user: action.payload.user };
+			return { user: action.payload };
 		case REMOVE_USER:
 			return { user: null };
 		default:
