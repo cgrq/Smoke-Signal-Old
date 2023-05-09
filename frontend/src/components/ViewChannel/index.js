@@ -46,7 +46,9 @@ const ViewChannel = () => {
       {Object.values(messages).map((message) => (
         <div key={message.id}>
           <div>
+            <p>{message.username}</p>
             <p>{message.message}</p>
+            <p>{message.sent_at}</p>
 
             {Number(message.user_id) === Number(user.id) && (
               <>
