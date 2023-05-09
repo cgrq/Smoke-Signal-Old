@@ -1,1 +1,12 @@
 /* TODO Add site wide styles */
+*{
+    margin:0;
+    padding:0;
+    color:rgb(214, 214, 214);
+}
+body{
+    background-color:black;
+}
+button, select, i, h1, label, input{
+    color:black;
+}

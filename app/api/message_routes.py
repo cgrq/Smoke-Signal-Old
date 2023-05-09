@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from ..forms import MessageForm
-from app.models import db, Message
+from app.models import db, Message, User
 
 message_routes = Blueprint('messages', __name__)
 
@@ -36,8 +36,11 @@ def channel_messages(channel_id):
     GET channel messages
     """
     messages = Message.query.where(Message.channel_id == channel_id).all()
+    # variable shadowing
+    messages = [{**message.to_dict(), "username": User.query.get(
+        message.to_dict()['user_id']).to_dict()['username']} for message in messages]
 
-    return {'messages': [message.to_dict() for message in messages]}
+    return {'messages': messages }
 
 
 @message_routes.route('/new', methods=['POST'])

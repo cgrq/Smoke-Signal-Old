@@ -1,0 +1,10 @@
+.chat-interface-message-form{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.chat-interface-message-inputs-wrapper{
+    display:flex;
+    justify-content: center;
+    padding:10px;
+}
