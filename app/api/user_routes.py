@@ -27,7 +27,7 @@ def user(id):
 
 @user_routes.route('/<int:id>/teams')
 @login_required
-def user(id):
+def user_teams(id):
     """
     Query for a user by id and returns a dictionary of the teams the user is in
     """
@@ -36,4 +36,7 @@ def user(id):
     for team in teams:
         user_teams.append({ "id": team.id, "name": team.name, "image_url": team.image_url })
 
+
+
     return {"userTeams": user_teams}
+

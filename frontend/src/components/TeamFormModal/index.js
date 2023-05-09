@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { createNewTeamThunk, updateTeamThunk, getAllTeamsThunk } from "../../store/teams";
+import { createNewTeamThunk, updateTeamThunk, getAllTeamsThunk,getUserTeamsThunk } from "../../store/teams";
 import InputField from "../InputField";
 import Button from "../Button";
 import "./TeamFormModal.css";
@@ -9,6 +9,7 @@ import "./TeamFormModal.css";
 function TeamFormModal({ type, title }) {
   const dispatch = useDispatch();
   const currentTeam = useSelector(state => state.teams.currentTeam);
+  const sessionUser = useSelector((state) => state.session.user);
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState([]);
@@ -38,6 +39,7 @@ function TeamFormModal({ type, title }) {
     if (data) {
       setErrors(data);
     } else {
+      await dispatch(getUserTeamsThunk(sessionUser.id))
       closeModal();
     }
 
