@@ -32,6 +32,7 @@ def user_teams(id):
     Query for a user by id and returns a dictionary of the teams the user is in
     """
     teams = Team.query.join(TeamMembership).filter_by(user_id = id).all()
+    print()
     user_teams = []
     for team in teams:
         user_teams.append({ "id": team.id, "name": team.name, "image_url": team.image_url })
@@ -39,4 +40,3 @@ def user_teams(id):
 
 
     return {"userTeams": user_teams}
-
