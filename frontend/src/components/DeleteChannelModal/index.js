@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { deleteChannelThunk, getUserChannelsThunk } from "../../store/channels";
+import { deleteChannelThunk, getUserChannelsThunk, resetCurrentChannel } from "../../store/channels";
 import "./DeleteChannelModal.css";
 
 function DeleteChannelModal({id }) {
@@ -16,7 +16,8 @@ function DeleteChannelModal({id }) {
     if (data) {
       setErrors(data);
     } else {
-      await dispatch(getUserChannelsThunk())
+      await dispatch(getUserChannelsThunk());
+      dispatch(resetCurrentChannel());
       closeModal();
     }
 
