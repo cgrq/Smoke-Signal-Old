@@ -79,13 +79,16 @@ def create_channel():
         team_id=data['teamId'],
     )
     db.session.add(new_channel)
+    db.session.commit() 
+
+    # print("CHANNEL ID")
+    # print(new_channel.id)
 
     membership = ChannelMembership(
         user_id=current_user.id,
         channel_id=new_channel.id,
     )
     db.session.add(membership)
-
     db.session.commit()
 
     return {'channel': new_channel.to_dict()}

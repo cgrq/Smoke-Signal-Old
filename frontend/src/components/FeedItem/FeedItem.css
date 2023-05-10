@@ -1,0 +1,16 @@
+.feed-item-wrapper{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin:10px 0;
+    background: rgb(50, 50, 50);
+    border-radius: 10px;
+}
+
+.feed-item-wrapper img{
+    width:40px;
+    height:40px;
+    margin-right:10px;
+    object-fit: contain;
+    background-color: black;
+}

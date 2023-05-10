@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCurrentTeamThunk, getUserTeamsThunk } from "../../store/teams";
+import { getUserChannelsThunk } from "../../store/channels";
+import { getCurrentTeamThunk } from "../../store/teams";
 
 import SelectTeamField from "../SelectTeamField/Index"
 import OpenModalButton from "../OpenModalButton"
 import TeamFormModal from "../TeamFormModal"
 import DeleteTeamModal from "../DeleteTeamModal"
-import { Link } from "react-router-dom"
+import ChannelFormModal from "../ChannelFormModal";
 
 function TeamManagement() {
     const [currentTeamId, setCurrentTeamId] = useState(4);
@@ -20,6 +21,8 @@ function TeamManagement() {
 
         if (data) {
             setErrors(data);
+        } else {
+            dispatch(getUserChannelsThunk())
         }
     };
 
@@ -50,9 +53,12 @@ function TeamManagement() {
                     <TeamFormModal type="create" title="Create a new team!" />
                 }
             />
-            <li>
-                <Link to={`/channels/new`}>Create New Channel</Link>
-            </li>
+            <OpenModalButton
+                buttonText="Create a Channel"
+                modalComponent={
+                    <ChannelFormModal componentType="create" title="Create a new channel!" />
+                }
+            />
         </div>
     )
 }

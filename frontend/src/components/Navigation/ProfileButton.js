@@ -54,9 +54,6 @@ function ProfileButton({ user }) {
             <li>{user.username}</li>
             <li>{user.email}</li>
             <li>
-              <Link to={`/user/channels`}>My Channels</Link>
-            </li>
-            <li>
               <button onClick={handleLogout}>Log Out</button>
             </li>
           </>
