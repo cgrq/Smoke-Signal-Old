@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { editChannelThunk, getUserChannelsThunk, createChannelThunk } from "../../store/channels";
+import { editChannelThunk, getUserChannelsThunk, createChannelThunk, getCurrentChannelThunk } from "../../store/channels";
 import InputField from "../InputField";
 import "./ChannelFormModal.css";
 
@@ -10,6 +10,7 @@ function ChannelFormModal({ id, componentType, title }) {
 
   const userChannels = useSelector((state) => state.channels.userChannels);
   const currentTeamId = useSelector((state) => state.teams.currentTeam.id);
+  const currentChannel = useSelector((state) => state.teams.currentChannel);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
