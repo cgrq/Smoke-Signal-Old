@@ -67,8 +67,12 @@ function ChatInterface({ isLoaded }) {
                             <MessageInputs channelId={currentChannel.id} newMessage={newMessage} setNewMessage={setNewMessage} />
                         </>
                     )
-                        :<h1>Please Select Channel</h1>
-                    
+                        :(
+                            <div className="chat-interface-no-channel-selected-wrapper">
+                                <h1>Please select a channel</h1>
+                            </div>
+                        )
+
                 }
             </div>
         </div>

@@ -6,7 +6,7 @@ import "./SelectTeamField.css";
 function SelectTeamField({ label, value, onChange, choices, placeholder }) {
     return (
         <>
-            <div>
+            <div className="select-team-field-wrapper">
                 <label className="select-team-field-label">
                     {label}
                 </label>
@@ -14,6 +14,7 @@ function SelectTeamField({ label, value, onChange, choices, placeholder }) {
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}
+                    className="select-team-field"
                 >
                     <option disabled>{placeholder}</option>
                     {choices.map(choice => (

@@ -42,3 +42,13 @@
     width:1000px;
 
 }
+
+.chat-interface-no-channel-selected-wrapper{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:100%;
+}
+.chat-interface-no-channel-selected-wrapper h1{
+    color:whitesmoke !important;
+}

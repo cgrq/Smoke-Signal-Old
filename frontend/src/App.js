@@ -25,9 +25,6 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path={"/"}>
-            <Navigation isLoaded={isLoaded} />
-          </Route>
-          <Route exact path="/staging/home">
             {
               // If user is logged in...
               user
@@ -38,10 +35,6 @@ function App() {
               // display Landing Page
               : <LandingPage />
             }
-          </Route>
-
-          <Route path="/channels/:id">
-            <ViewChannel />
           </Route>
         </Switch>
       )}
