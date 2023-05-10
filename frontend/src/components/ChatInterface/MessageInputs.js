@@ -1,8 +1,28 @@
-function MessageInputs() {
+import { useDispatch, useSelector } from "react-redux";
+import {
+    createMessageThunk,
+    getChannelMessagesThunk,
+  } from "../../store/messages";
+
+function MessageInputs({channelId, newMessage,setNewMessage}) {
+  const dispatch = useDispatch();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const message = {
+          message: newMessage,
+          channelId
+        };
+
+        await dispatch(createMessageThunk(message));
+        await dispatch(getChannelMessagesThunk(channelId));
+        setNewMessage("");
+      };
     return (
         <div className="chat-interface-message-inputs-wrapper">
-            <form className="chat-interface-message-form">
-                <textarea className="chat-interface-message-input" />
+            <form onSubmit={handleSubmit} className="chat-interface-message-form">
+                <textarea value={newMessage} onChange={e=>setNewMessage(e.target.value)} className="chat-interface-message-input" />
                 <button className="chat-interface-message-button" type="submit">Send</button>
             </form>
         </div>

@@ -13,8 +13,11 @@ import { getUserChannelsThunk } from "../../store/channels";
 function ChatInterface({ isLoaded }) {
     const sessionUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
-    const currentTeamId = useSelector((state) => state.teams.currentTeam.id)
+    const currentTeam = useSelector((state) => state.teams.currentTeam)
+    const currentChannel = useSelector((state) => state.channels.currentChannel)
     const userChannels = useSelector((state) => state.channels.userChannels)
+    const [newMessage, setNewMessage] = useState("");
+
 
     useEffect(() => {
         if (sessionUser && sessionUser.id) {
@@ -25,7 +28,7 @@ function ChatInterface({ isLoaded }) {
 
     }, [sessionUser]);
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getCurrentTeamThunk(4))
     }, [])
 
@@ -38,13 +41,13 @@ function ChatInterface({ isLoaded }) {
                 {/* Team management*/}
                 <TeamManagement />
                 {
-                    currentTeamId && userChannels
-                    ?(
-                        <>
+                    currentTeam && userChannels
+                        ? (
+                            <>
                                 {/* Channels */}
-                                <ChannelFeed userChannels={userChannels} currentTeamId={currentTeamId} />
+                                <ChannelFeed userChannels={userChannels} currentTeamId={currentTeam.id} />
                                 {/* Direct Messages */}
-                                <DirectMessageFeed userChannels={userChannels} currentTeamId={currentTeamId}/>
+                                <DirectMessageFeed userChannels={userChannels} currentTeamId={currentTeam.id} />
                             </>
                         )
                         : null
@@ -53,11 +56,20 @@ function ChatInterface({ isLoaded }) {
             {/* Right Column */}
             <div className="chat-interface-main-column chat-interface-main-right-column">
                 {/* Nav/Search */}
-                <SearchNav isLoaded={isLoaded} sessionUser={sessionUser}/>
+                <SearchNav isLoaded={isLoaded} sessionUser={sessionUser} />
                 {/* Message feed */}
-                <MessageFeed />
                 {/* Message Inputs */}
-                <MessageInputs />
+                {
+                    currentChannel
+                    ? (
+                        <>
+                            <MessageFeed />
+                            <MessageInputs channelId={currentChannel.id} newMessage={newMessage} setNewMessage={setNewMessage} />
+                        </>
+                    )
+                        :<h1>Please Select Channel</h1>
+                    
+                }
             </div>
         </div>
     )

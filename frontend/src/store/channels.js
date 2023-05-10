@@ -113,11 +113,9 @@ export const createChannelThunk = (channel) => async (dispatch) => {
 
 // Get current team by ID thunk
 export const getCurrentChannelThunk = (id) => async (dispatch) => {
-  console.log(`🖥 ~ file: channels.js:116 ~ getCurrentChannelThunk ~ id:`, id)
   const response = await fetch(`/api/channels/${id}`);
   if (response.ok) {
       const channel = await response.json();
-      console.log(`🖥 ~ file: channels.js:119 ~ getCurrentChannelThunk ~ channel:`, channel)
       dispatch(addCurrentChannel(channel));
       return null;
   } else {

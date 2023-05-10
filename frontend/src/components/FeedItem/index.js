@@ -5,6 +5,7 @@ import ChannelFormModal from "../ChannelFormModal";
 import DeleteChannelModal from "../DeleteChannelModal";
 import "./FeedItem.css"
 import { getCurrentChannelThunk } from "../../store/channels";
+import { getChannelMessagesThunk } from "../../store/messages";
 
 export default function FeedItem({ channelId, imageSrc, name }) {
     const dispatch = useDispatch();
@@ -16,6 +17,8 @@ export default function FeedItem({ channelId, imageSrc, name }) {
 
         if (data) {
             setErrors(data);
+        } else {
+            dispatch(getChannelMessagesThunk(channelId))
         }
     }
 
