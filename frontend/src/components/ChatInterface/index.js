@@ -13,7 +13,7 @@ import { getUserChannelsThunk } from "../../store/channels";
 function ChatInterface({ isLoaded }) {
     const sessionUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
-    const currentTeam = useSelector((state) => state.teams.currentTeam)
+    const currentTeamId = useSelector((state) => state.teams.currentTeam.id)
     const userChannels = useSelector((state) => state.channels.userChannels)
 
     useEffect(() => {
@@ -38,13 +38,13 @@ function ChatInterface({ isLoaded }) {
                 {/* Team management*/}
                 <TeamManagement />
                 {
-                    currentTeam && userChannels
+                    currentTeamId && userChannels
                     ?(
                         <>
                                 {/* Channels */}
-                                <ChannelFeed userChannels={userChannels} currentTeam={currentTeam} />
+                                <ChannelFeed userChannels={userChannels} currentTeamId={currentTeamId} />
                                 {/* Direct Messages */}
-                                <DirectMessageFeed userChannels={userChannels} currentTeam={currentTeam}/>
+                                <DirectMessageFeed userChannels={userChannels} currentTeamId={currentTeamId}/>
                             </>
                         )
                         : null
