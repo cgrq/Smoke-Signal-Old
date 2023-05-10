@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { editChannelThunk, getUserChannelsThunk, createChannelThunk, getCurrentChannelThunk } from "../../store/channels";
+import {
+  editChannelThunk,
+  getUserChannelsThunk,
+  createChannelThunk,
+} from "../../store/channels";
 import InputField from "../InputField";
 import "./ChannelFormModal.css";
 
@@ -30,9 +34,9 @@ function ChannelFormModal({ id, componentType, title }) {
     }
   }, [userChannels]);
 
-  useEffect(()=>{
-    dispatch(getUserChannelsThunk(id))
-  },[currentTeamId])
+  useEffect(() => {
+    dispatch(getUserChannelsThunk(id));
+  }, [currentTeamId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +51,7 @@ function ChannelFormModal({ id, componentType, title }) {
     };
 
     let data;
-    if (componentType === 'create') {
+    if (componentType === "create") {
       data = await dispatch(createChannelThunk(newChannel));
     } else {
       data = await dispatch(editChannelThunk(newChannel));
@@ -56,10 +60,9 @@ function ChannelFormModal({ id, componentType, title }) {
     if (data) {
       setErrors(data);
     } else {
-      await dispatch(getUserChannelsThunk())
+      await dispatch(getUserChannelsThunk());
       closeModal();
     }
-
   };
 
   return (
@@ -104,10 +107,9 @@ function ChannelFormModal({ id, componentType, title }) {
           required={false}
         />
 
-
-
-        <button type="submit">{componentType === 'create' ? 'Create ' : 'Update '}Channel</button>
-
+        <button type="submit">
+          {componentType === "create" ? "Create " : "Update "}Channel
+        </button>
       </form>
     </>
   );

@@ -1,4 +1,5 @@
 import os
+
 from flask_login import current_user, login_required
 from flask_socketio import SocketIO, emit
 from app.models import Message, db
@@ -18,17 +19,27 @@ socket = SocketIO(cors_allowed_origins=origins)
 # Handle channel messages
 
 
-@socket.on("message")
+@socket.on("message sent")
 @login_required
-def handle_message(msg):
-    if msg.isinstance(Message):
-        message = Message(
-            message=msg.message,
+def handle_message(message):
+    # print("\nTHIS IS A MESSAGE =>\n", message)
+    # print("\nTHIS IS OUR CURRENT USER =>\n", current_user)
+    # print("\nTHIS IS OUR CURRENT USER ID =>\n", current_user.id)
+
+    if message['message'] != "user connected":
+        msg = Message(
+            message=message["message"],
             user_id=current_user.id,
-            channel_id=msg.channel_id,
+            channel_id=message["channelId"],
         )
 
-        db.session.add(message)
+        db.session.add(msg)
         db.session.commit()
 
-    emit("message", msg, broadcast=True)
+    messages = Message.query.where(
+        Message.channel_id == message["channelId"]).all()
+
+    # print("\n----MESSAGE RECEIVED----\n")
+
+    emit('updated messages', {"messages": [
+         message.to_dict() for message in messages]}, broadcast=True)

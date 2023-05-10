@@ -35,5 +35,5 @@ class Message(db.Model):
             'message': self.message,
             # 'created_at': self.created_at,
             # 'updated_at': self.updated_at,
-            'sent_at': self.sent_at,
+            'sent_at': str(self.sent_at),
         }
