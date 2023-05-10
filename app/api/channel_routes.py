@@ -78,6 +78,7 @@ def create_channel():
         image_url=data['imageUrl'],
         team_id=data['teamId'],
     )
+    
     db.session.add(new_channel)
     db.session.commit()
 
