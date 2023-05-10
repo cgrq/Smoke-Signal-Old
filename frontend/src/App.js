@@ -3,15 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { authenticate } from "./store/session";
 import { getAllTeamsThunk } from "./store/teams";
-import Navigation from "./components/Navigation";
-import LandingPage from "./components/LandingPage"
-import ViewChannel from './components/ViewChannel'
+import LandingPage from "./components/LandingPage";
 import ChatInterface from "./components/ChatInterface";
 
 function App() {
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.session);
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -27,13 +26,14 @@ function App() {
           <Route exact path={"/"}>
             {
               // If user is logged in...
-              user
-              // display Chat Interface
-              ? <ChatInterface isLoaded={isLoaded}/>
-
-              // If they are logged out...
-              // display Landing Page
-              : <LandingPage />
+              user ? (
+                // display Chat Interface
+                <ChatInterface isLoaded={isLoaded} />
+              ) : (
+                // If they are logged out...
+                // display Landing Page
+                <LandingPage />
+              )
             }
           </Route>
         </Switch>
