@@ -9,15 +9,15 @@ let socket;
 function MessageFeed({ channelId }) {
   const dispatch = useDispatch();
 
-  // const msgs = useSelector((state) => state.messages.channelMessages);
+  const msgs = useSelector((state) => state.messages.channelMessages);
 
-  // const [messages, setMessages] = useState(msgs);
-  const [messages, setMessages] = useState({});
+  const [messages, setMessages] = useState(msgs);
+  // const [messages, setMessages] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     dispatch(getChannelMessagesThunk(channelId)).then(() => setIsLoaded(true));
-  }, []);
+  }, [channelId]);
 
   useEffect(() => {
     socket = io();
@@ -34,7 +34,7 @@ function MessageFeed({ channelId }) {
     });
 
     return () => socket.disconnect();
-  }, []);
+  }, [channelId]);
 
   if (!isLoaded) return <>Loading...</>;
 
