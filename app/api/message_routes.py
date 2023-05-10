@@ -40,7 +40,7 @@ def channel_messages(channel_id):
     messages = [{**message.to_dict(), "username": User.query.get(
         message.to_dict()['user_id']).to_dict()['username']} for message in messages]
 
-    return {'messages': messages }
+    return {'messages': messages}
 
 
 @message_routes.route('/new', methods=['POST'])
@@ -81,7 +81,6 @@ def edit_message(message_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if not form.validate_on_submit():
-        print(form.errors)
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
     message = Message.query.get(message_id)

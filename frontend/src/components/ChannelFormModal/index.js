@@ -10,7 +10,6 @@ function ChannelFormModal({ id, componentType, title }) {
 
   const userChannels = useSelector((state) => state.channels.userChannels);
   const currentTeamId = useSelector((state) => state.teams.currentTeam.id);
-  const currentChannel = useSelector((state) => state.teams.currentChannel);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");

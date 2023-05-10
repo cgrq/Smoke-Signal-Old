@@ -3,12 +3,12 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
-import { ModalProvider, Modal } from "./context/Modal";
+import App from "./App";
 import configureStore from "./store";
+import { ModalProvider, Modal } from "./context/Modal";
 import * as sessionActions from "./store/session";
 import * as channelActions from "./store/channels";
 import * as messageActions from "./store/messages";
-import App from "./App";
 
 import "./index.css";
 

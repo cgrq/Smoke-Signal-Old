@@ -1,5 +1,5 @@
-from flask import Blueprint, jsonify, session, request
-from app.models import User, Team, TeamMembership, db
+from flask import Blueprint, request
+from app.models import User, TeamMembership, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -78,14 +78,13 @@ def sign_up():
         db.session.commit()
 
         team_membership = TeamMembership(
-            status = 'member',
-            team_id = 4,
-            user_id = user.id
+            status='member',
+            team_id=4,
+            user_id=user.id
         )
 
         db.session.add(team_membership)
         db.session.commit()
-
 
         login_user(user)
         return {"user": user.to_dict()}

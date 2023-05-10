@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User, Team, TeamMembership, db
+from app.models import User, Team, TeamMembership
 
 user_routes = Blueprint('users', __name__)
 
@@ -25,18 +25,17 @@ def user(id):
 
     return user.to_dict()
 
+
 @user_routes.route('/<int:id>/teams')
 @login_required
 def user_teams(id):
     """
     Query for a user by id and returns a dictionary of the teams the user is in
     """
-    teams = Team.query.join(TeamMembership).filter_by(user_id = id).all()
-    print()
+    teams = Team.query.join(TeamMembership).filter_by(user_id=id).all()
     user_teams = []
     for team in teams:
-        user_teams.append({ "id": team.id, "name": team.name, "image_url": team.image_url })
-
-
+        user_teams.append({"id": team.id, "name": team.name,
+                          "image_url": team.image_url})
 
     return {"userTeams": user_teams}
