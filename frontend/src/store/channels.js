@@ -103,6 +103,7 @@ export const createChannelThunk = (channel) => async (dispatch) => {
   if (response.ok) {
     const { channel } = await response.json();
     dispatch(createChannel(channel));
+    dispatch(addCurrentChannel(channel))
 
     return null;
   }
