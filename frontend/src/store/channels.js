@@ -240,7 +240,6 @@ const channelsReducer = (state = initialState, action) => {
     case RESET_CURRENT_CHANNEL: {
       const newState = { ...state };
       newState.currentChannel = null;
-
       return newState;
     }
     default:
