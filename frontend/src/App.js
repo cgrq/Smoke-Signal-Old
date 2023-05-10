@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom";
 import { authenticate } from "./store/session";
 import { getAllTeamsThunk } from "./store/teams";
 import Navigation from "./components/Navigation";
-import UserChannels from "./components/UserChannels";
 import LandingPage from "./components/LandingPage"
 import ViewChannel from './components/ViewChannel'
 import ChatInterface from "./components/ChatInterface";
@@ -26,9 +25,6 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path={"/"}>
-            <Navigation isLoaded={isLoaded} />
-          </Route>
-          <Route exact path="/staging/home">
             {
               // If user is logged in...
               user
@@ -39,13 +35,6 @@ function App() {
               // display Landing Page
               : <LandingPage />
             }
-          </Route>
-          <Route path="/user/channels">
-            <Navigation isLoaded={isLoaded} />
-            <UserChannels />
-          </Route>
-          <Route path="/channels/:id">
-            <ViewChannel />
           </Route>
         </Switch>
       )}

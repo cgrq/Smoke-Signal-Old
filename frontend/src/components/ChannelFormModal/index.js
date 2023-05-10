@@ -9,12 +9,11 @@ function ChannelFormModal({ id, componentType, title }) {
   const dispatch = useDispatch();
 
   const userChannels = useSelector((state) => state.channels.userChannels);
-  const sessionUser = useSelector((state) => state.session.user);
+  const currentTeamId = useSelector((state) => state.teams.currentTeam.id);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [teamId, setTeamId] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
@@ -27,14 +26,13 @@ function ChannelFormModal({ id, componentType, title }) {
         setDescription(channel.description);
         setType(channel.type);
         setImageUrl(channel.imageUrl);
-        setTeamId(channel.teamId);
       }
     }
   }, [userChannels]);
 
   useEffect(()=>{
     dispatch(getUserChannelsThunk(id))
-  },[teamId])
+  },[currentTeamId])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +43,7 @@ function ChannelFormModal({ id, componentType, title }) {
       description,
       type,
       imageUrl,
-      teamId,
+      teamId: currentTeamId,
     };
 
     let data;
@@ -106,13 +104,7 @@ function ChannelFormModal({ id, componentType, title }) {
           required={false}
         />
 
-        <InputField
-          label="Team Id"
-          value={teamId}
-          onChange={(e) => setTeamId(e.target.value)}
-          placeholder="Associated Team ID (to be removed/abstracted)"
-          required={false}
-        />
+
 
         <button type="submit">{componentType === 'create' ? 'Create ' : 'Update '}Channel</button>
 

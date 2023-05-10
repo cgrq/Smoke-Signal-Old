@@ -1,16 +1,32 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton"
 import ChannelFormModal from "../ChannelFormModal";
 import DeleteChannelModal from "../DeleteChannelModal";
 import "./FeedItem.css"
+import { getCurrentChannelThunk } from "../../store/channels";
+import { getChannelMessagesThunk } from "../../store/messages";
 
-export default function FeedItem({channelId, imageSrc, name, onClick }) {
+export default function FeedItem({ channelId, imageSrc, name }) {
+    const dispatch = useDispatch();
+    const [errors, setErrors] = useState([]);
 
 
-    if(!channelId) return null
+    const onChannelClick = async () => {
+        const data = await dispatch(getCurrentChannelThunk(channelId));
+
+        if (data) {
+            setErrors(data);
+        } else {
+            dispatch(getChannelMessagesThunk(channelId))
+        }
+    }
+
+    if (!channelId) return null
 
     return (
         <>
-            <div onClick={onClick} className="feed-item-wrapper clickable">
+            <div onClick={onChannelClick} className="feed-item-wrapper clickable">
                 <img src={imageSrc} />
                 <p>{name}</p>
             </div>
