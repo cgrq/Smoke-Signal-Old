@@ -130,7 +130,7 @@ const messageReducer = (state = initialState, action) => {
       const messages = {};
       action.payload.forEach((message) => (messages[message.id] = message));
 
-      newState.channelMessages = { ...state.initialState, ...messages };
+      newState.channelMessages = { ...state.channelMessages, ...messages };
       return newState;
     }
 
