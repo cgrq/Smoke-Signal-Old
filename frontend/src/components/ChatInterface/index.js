@@ -1,43 +1,33 @@
 import "./ChatInterface.css"
 import React, { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getCurrentTeamThunk, getUserTeamsThunk } from "../../store/teams";
-import OpenModalButton from "../OpenModalButton";
-import TeamFormModal from "../TeamFormModal";
-import ProfileButton from "../Navigation/ProfileButton";
-import SelectTeamField from "../SelectTeamField/Index";
-import DeleteTeamModal from "../DeleteTeamModal";
 import TeamManagement from "./TeamManagement";
 import SearchNav from "./SearchNav";
 import MessageFeed from "./MessageFeed";
 import MessageInputs from "./MessageInputs";
 import ChannelFeed from "./ChannelFeed";
 import DirectMessageFeed from "./DirectMessageFeed";
+import { getUserChannelsThunk } from "../../store/channels";
 
 function ChatInterface({ isLoaded }) {
     const sessionUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
-    const [currentTeamId, setCurrentTeamId] = useState(4);
-    const [errors, setErrors] = useState({});
-    const userTeams = useSelector((state) => state.teams.userTeams);
+    const currentTeam = useSelector((state) => state.teams.currentTeam)
+    const userChannels = useSelector((state) => state.channels.userChannels)
 
     useEffect(() => {
         if (sessionUser && sessionUser.id) {
             dispatch(getUserTeamsThunk(sessionUser.id))
-            dispatch(getCurrentTeamThunk(currentTeamId));
+            // dispatch(getCurrentTeamThunk(currentTeam.id));
+            dispatch(getUserChannelsThunk())
         }
 
     }, [sessionUser]);
 
-    const handleTeamSelect = async (e) => {
-        setCurrentTeamId(e.target.value);
-        const data = await dispatch(getCurrentTeamThunk(e.target.value));
-
-        if (data) {
-            setErrors(data);
-        }
-    };
+    useEffect(()=>{
+        dispatch(getCurrentTeamThunk(4))
+    }, [])
 
     return (
         <div className="chat-interface-main-wrapper">
@@ -47,10 +37,18 @@ function ChatInterface({ isLoaded }) {
                 <div></div>
                 {/* Team management*/}
                 <TeamManagement />
-                {/* Channels */}
-                <ChannelFeed />
-                {/* Direct Messages */}
-                <DirectMessageFeed />
+                {
+                    currentTeam && userChannels
+                    ?(
+                        <>
+                                {/* Channels */}
+                                <ChannelFeed userChannels={userChannels} />
+                                {/* Direct Messages */}
+                                <DirectMessageFeed userChannels={userChannels}/>
+                            </>
+                        )
+                        : null
+                }
             </div>
             {/* Right Column */}
             <div className="chat-interface-main-column chat-interface-main-right-column">

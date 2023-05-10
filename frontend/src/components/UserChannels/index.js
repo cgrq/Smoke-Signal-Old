@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { deleteChannelThunk, getUserChannelsThunk } from "../../store/channels";
 import { Link } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
-import CreateChannel from "../CreateChannel";
+import CreateChannel from "../CreateChannelModal";
 
 const UserChannels = () => {
   const dispatch = useDispatch();

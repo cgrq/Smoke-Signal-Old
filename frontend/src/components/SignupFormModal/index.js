@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { getCurrentTeamThunk } from "../../store/teams";
 import { signUp } from "../../store/session";
 import "./SignupForm.css";
 
@@ -24,7 +23,7 @@ function SignupFormModal() {
       if (data) {
         setErrors(data);
       } else {
-        
+
         closeModal();
       }
     } else {

@@ -5,9 +5,8 @@ import { authenticate } from "./store/session";
 import { getAllTeamsThunk } from "./store/teams";
 import Navigation from "./components/Navigation";
 import UserChannels from "./components/UserChannels";
-import CreateChannel from "./components/CreateChannel";
-import ViewChannel from "./components/ViewChannel";
 import LandingPage from "./components/LandingPage"
+import ViewChannel from './components/ViewChannel'
 import ChatInterface from "./components/ChatInterface";
 
 function App() {
@@ -45,13 +44,8 @@ function App() {
             <Navigation isLoaded={isLoaded} />
             <UserChannels />
           </Route>
-
-          <Route path="/channels/new">
-            <CreateChannel />
-          </Route>
-
           <Route path="/channels/:id">
-            <CreateChannel />
+            <ViewChannel />
           </Route>
         </Switch>
       )}
