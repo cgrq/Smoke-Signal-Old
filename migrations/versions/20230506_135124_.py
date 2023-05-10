@@ -92,6 +92,12 @@ def upgrade():
 
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE teams SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE channels SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE messages SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE team_memberships SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE channel_memberships SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 
