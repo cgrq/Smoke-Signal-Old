@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux"
 import Message from "./Message"
+
+
 function MessageFeed() {
-    const messages = useSelector((state)=>state.messages.channelMessages)
+    const messages = useSelector((state)=>state.messages.channelMessages);
     return (
         <div className="chat-interface-message-feed">
             <ul className="chat-interface-message-wrapper">

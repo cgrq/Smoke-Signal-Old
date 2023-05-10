@@ -18,7 +18,7 @@ export default function FeedItem({ channelId, imageSrc, name }) {
         if (data) {
             setErrors(data);
         } else {
-            dispatch(getChannelMessagesThunk(channelId))
+            dispatch(getChannelMessagesThunk(channelId));
         }
     }
 
