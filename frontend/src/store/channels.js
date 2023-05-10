@@ -1,12 +1,17 @@
 // Action type constants
 const GET_ALL_CHANNELS = "channels/GET_ALL_CHANNELS";
 const GET_USER_CHANNELS = "channels/GET_USER_CHANNELS";
+const ADD_CURRENT_CHANNEL = 'teams/ADD_CURRENT_CHANNEL';
 const GET_TEAM_CHANNELS = "channels/GET_TEAM_CHANNELS";
 const CREATE_CHANNEL = "channels/CREATE_CHANNEL";
 const EDIT_CHANNEL = "channels/EDIT_CHANNEL";
 const DELETE_CHANNEL = "channels/DELETE_CHANNEL";
 
 // Action creators
+const addCurrentChannel = (channel) => ({
+  type: ADD_CURRENT_CHANNEL,
+  payload: channel
+});
 const getAllChannels = (channels) => ({
   type: GET_ALL_CHANNELS,
   payload: channels,
@@ -60,6 +65,7 @@ export const getUserChannelsThunk = () => async (dispatch) => {
 
   if (response.ok) {
     const { channels } = await response.json();
+    console.log(`🖥 ~ file: channels.js:68 ~ getUserChannelsThunk ~ channels:`, channels)
     dispatch(getUserChannels(channels));
 
     return channels;
@@ -86,7 +92,6 @@ export const getTeamChannelsThunk = (teamId) => async (dispatch) => {
 
 // Create channel
 export const createChannelThunk = (channel) => async (dispatch) => {
-  console.log(`🖥 ~ file: channels.js:89 ~ createChannelThunk ~ channel:`, channel)
   const response = await fetch("/api/channels/new", {
     method: "POST",
     headers: {
@@ -106,9 +111,25 @@ export const createChannelThunk = (channel) => async (dispatch) => {
   return errors;
 };
 
+// Get current team by ID thunk
+export const getCurrentChannelThunk = (id) => async (dispatch) => {
+  console.log(`🖥 ~ file: channels.js:116 ~ getCurrentChannelThunk ~ id:`, id)
+  const response = await fetch(`/api/channels/${id}`);
+  if (response.ok) {
+      const channel = await response.json();
+      console.log(`🖥 ~ file: channels.js:119 ~ getCurrentChannelThunk ~ channel:`, channel)
+      dispatch(addCurrentChannel(channel));
+      return null;
+  } else {
+      const errorResponse = await response.json();
+      return errorResponse.errors;
+  }
+};
+
+
 // Edit channel
 export const editChannelThunk = (channel) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${channel.id}`, {
+  const response = await fetch(`/api/channels/${channel.id}/edit`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -145,10 +166,15 @@ export const deleteChannelThunk = (channelId) => async (dispatch) => {
 };
 
 // Channel reducer
-const initialState = { allChannels: {}, userChannels: {}, teamChannels: {} };
+const initialState = { allChannels: {}, currentChannel: null, userChannels: {}, teamChannels: {} };
 
 const channelsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_CURRENT_CHANNEL: {
+      const newState = { ...state, currentChannel: { ...state.currentChannel } };
+      newState.currentChannel = action.payload.channel;
+      return newState;
+  }
     case GET_ALL_CHANNELS: {
       const newState = { ...state };
 
@@ -160,7 +186,7 @@ const channelsReducer = (state = initialState, action) => {
       return newState;
     }
     case GET_USER_CHANNELS: {
-      const newState = { ...state };
+      const newState = { ...state, userChannels:{} };
 
       // Normalize data
       const channels = {};

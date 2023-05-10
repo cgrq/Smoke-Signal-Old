@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import FeedItem from "../FeedItem";
 import { useEffect } from "react";
 
-function DirectMessageFeed({userChannels}) {
+function DirectMessageFeed({userChannels, currentTeam}) {
 
     return (
         <div>
@@ -10,7 +10,7 @@ function DirectMessageFeed({userChannels}) {
             <ul>
                 {
                     Object.values(userChannels).map(channel => (
-                        channel.type === "dm" && (
+                        (channel.type === "dm" && channel.teamId === currentTeam.id) && (
                             <li key={channel.id}>
                                 <FeedItem channelId={channel.id}  imageSrc={channel.imageUrl} name={channel.name} />
                             </li>)

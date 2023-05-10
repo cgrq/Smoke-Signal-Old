@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import FeedItem from "../FeedItem";
 import { useEffect } from "react";
 
-function ChannelFeed({userChannels}) {
+function ChannelFeed({userChannels, currentTeam}) {
 
 
     return (
@@ -11,7 +11,7 @@ function ChannelFeed({userChannels}) {
             <ul>
                 {
                     Object.values(userChannels).map(channel => (
-                        (channel.type === "channel") && (
+                        (channel.type === "channel" && channel.teamId === currentTeam.id) && (
                             <li key={channel.id}>
                                 <FeedItem channelId={channel.id} imageSrc={channel.imageUrl} name={channel.name} />
                             </li>)

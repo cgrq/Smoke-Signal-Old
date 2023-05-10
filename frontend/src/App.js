@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom";
 import { authenticate } from "./store/session";
 import { getAllTeamsThunk } from "./store/teams";
 import Navigation from "./components/Navigation";
-import UserChannels from "./components/UserChannels";
 import LandingPage from "./components/LandingPage"
 import ViewChannel from './components/ViewChannel'
 import ChatInterface from "./components/ChatInterface";
@@ -40,10 +39,7 @@ function App() {
               : <LandingPage />
             }
           </Route>
-          <Route path="/user/channels">
-            <Navigation isLoaded={isLoaded} />
-            <UserChannels />
-          </Route>
+
           <Route path="/channels/:id">
             <ViewChannel />
           </Route>

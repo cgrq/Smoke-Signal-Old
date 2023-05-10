@@ -42,9 +42,9 @@ function ChatInterface({ isLoaded }) {
                     ?(
                         <>
                                 {/* Channels */}
-                                <ChannelFeed userChannels={userChannels} />
+                                <ChannelFeed userChannels={userChannels} currentTeam={currentTeam} />
                                 {/* Direct Messages */}
-                                <DirectMessageFeed userChannels={userChannels}/>
+                                <DirectMessageFeed userChannels={userChannels} currentTeam={currentTeam}/>
                             </>
                         )
                         : null

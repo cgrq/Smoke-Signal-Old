@@ -79,7 +79,7 @@ def create_channel():
         team_id=data['teamId'],
     )
     db.session.add(new_channel)
-    db.session.commit() 
+    db.session.commit()
 
     # print("CHANNEL ID")
     # print(new_channel.id)
@@ -93,13 +93,28 @@ def create_channel():
 
     return {'channel': new_channel.to_dict()}
 
+@channel_routes.route('/<int:channel_id>')
+@login_required
+def get_channel(channel_id):
+    """
+    GET channel by ID
+    """
+    print("HIT ROUTE ~~~")
 
-@channel_routes.route('/<int:channel_id>', methods=['PUT'])
+
+    channel = Channel.query.get(channel_id)
+    print("CHANNEL ~~~~~~~~")
+    print(channel.to_dict())
+
+    return {'channel': channel.to_dict()}
+
+@channel_routes.route('/<int:channel_id>/edit', methods=['PUT'])
 @login_required
 def edit_channel(channel_id):
     """
     PUT edit a channel
     """
+    print("HIT ROUTE ~~~")
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -107,16 +122,19 @@ def edit_channel(channel_id):
         return validation_errors_to_error_messages(form.errors)
 
     channel = Channel.query.get(channel_id)
+    print("CHANNEL ~~~~~~~~")
+    print(channel.to_dict())
 
-    data = form.data
+    if form.validate_on_submit():
+        data = form.data
 
-    channel.name = data['name']
-    channel.description = data['description']
-    channel.type = data['type']
-    channel.image_url = data['imageUrl']
-    channel.team_id = data['teamId']
+        channel.name = data['name']
+        channel.description = data['description']
+        channel.type = data['type']
+        channel.image_url = data['imageUrl']
+        channel.team_id = data['teamId']
 
-    db.session.commit()
+        db.session.commit()
 
     return {'channel': channel.to_dict()}
 
