@@ -6,6 +6,7 @@ const GET_TEAM_CHANNELS = "channels/GET_TEAM_CHANNELS";
 const CREATE_CHANNEL = "channels/CREATE_CHANNEL";
 const EDIT_CHANNEL = "channels/EDIT_CHANNEL";
 const DELETE_CHANNEL = "channels/DELETE_CHANNEL";
+const RESET_CURRENT_CHANNEL = "channels/RESET_CURRENT_CHANNEL";
 
 // Action creators
 const addCurrentChannel = (channel) => ({
@@ -40,6 +41,10 @@ const editChannel = (channel) => ({
 const deleteChannel = (channelId) => ({
   type: DELETE_CHANNEL,
   payload: channelId,
+});
+
+export const resetCurrentChannel = () => ({
+  type: RESET_CURRENT_CHANNEL
 });
 
 // Thunk action creators
@@ -103,7 +108,7 @@ export const createChannelThunk = (channel) => async (dispatch) => {
   if (response.ok) {
     const { channel } = await response.json();
     dispatch(createChannel(channel));
-    dispatch(addCurrentChannel(channel))
+    // dispatch(addCurrentChannel(channel));
 
     return null;
   }
@@ -210,6 +215,7 @@ const channelsReducer = (state = initialState, action) => {
       newState.allChannels[action.payload.id] = action.payload;
       newState.userChannels[action.payload.id] = action.payload;
       newState.teamChannels[action.payload.id] = action.payload;
+      newState.currentChannel = action.payload;
 
       return newState;
     }
@@ -228,6 +234,12 @@ const channelsReducer = (state = initialState, action) => {
       delete newState.allChannels[action.payload];
       delete newState.userChannels[action.payload];
       delete newState.teamChannels[action.payload];
+
+      return newState;
+    }
+    case RESET_CURRENT_CHANNEL: {
+      const newState = { ...state };
+      newState.currentChannel = null;
 
       return newState;
     }
