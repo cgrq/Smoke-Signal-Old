@@ -1,17 +1,15 @@
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, request, redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
-from flask_wtf.csrf import CSRFProtect, generate_csrf
+from flask_wtf.csrf import generate_csrf
 from flask_login import LoginManager
+
 from .models import db, User
-from .api.user_routes import user_routes
-from .api.auth_routes import auth_routes
-from .api.team_routes import team_routes
-from .api.channel_routes import channel_routes
-from .api.message_routes import message_routes
+from .api import api
 from .seeds import seed_commands
 from .config import Config
+from .socket import socket
 
 app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
 
@@ -29,13 +27,11 @@ def load_user(id):
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
-app.register_blueprint(user_routes, url_prefix='/api/users')
-app.register_blueprint(auth_routes, url_prefix='/api/auth')
-app.register_blueprint(team_routes, url_prefix='/api/teams')
-app.register_blueprint(channel_routes, url_prefix='/api/channels')
-app.register_blueprint(message_routes, url_prefix='/api/messages')
+app.register_blueprint(api, url_prefix='/api')
 db.init_app(app)
+
 Migrate(app, db)
+socket.init_app(app)
 
 # Application Security
 CORS(app)
@@ -95,3 +91,7 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
+
+
+if __name__ == '__main__':
+    socket.run(app)
