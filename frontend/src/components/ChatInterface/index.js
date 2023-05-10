@@ -16,7 +16,7 @@ function ChatInterface({ isLoaded }) {
   const currentTeam = useSelector((state) => state.teams.currentTeam);
   const currentChannel = useSelector((state) => state.channels.currentChannel);
   const userChannels = useSelector((state) => state.channels.userChannels);
-  // const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState("");
 
   useEffect(() => {
     if (sessionUser && sessionUser.id) {
@@ -64,8 +64,8 @@ function ChatInterface({ isLoaded }) {
             {/* Message Inputs */}
             <MessageInputs
               channelId={currentChannel.id}
-              // newMessage={newMessage}
-              // setNewMessage={setNewMessage}
+              newMessage={newMessage}
+              setNewMessage={setNewMessage}
             />
           </>
         ) : (
