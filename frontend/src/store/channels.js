@@ -86,6 +86,7 @@ export const getTeamChannelsThunk = (teamId) => async (dispatch) => {
 
 // Create channel
 export const createChannelThunk = (channel) => async (dispatch) => {
+  console.log(`🖥 ~ file: channels.js:89 ~ createChannelThunk ~ channel:`, channel)
   const response = await fetch("/api/channels/new", {
     method: "POST",
     headers: {
@@ -98,7 +99,7 @@ export const createChannelThunk = (channel) => async (dispatch) => {
     const { channel } = await response.json();
     dispatch(createChannel(channel));
 
-    return channel;
+    return null;
   }
 
   const errors = response.json();
@@ -119,7 +120,7 @@ export const editChannelThunk = (channel) => async (dispatch) => {
     const { channel } = await response.json();
     dispatch(editChannel(channel));
 
-    return channel;
+    return null;
   }
 
   const errors = response.json();
@@ -136,7 +137,7 @@ export const deleteChannelThunk = (channelId) => async (dispatch) => {
     const deleteSuccessMessage = await response.json();
     dispatch(deleteChannel(channelId));
 
-    return deleteSuccessMessage;
+    return null;
   }
 
   const errors = response.json();

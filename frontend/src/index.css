@@ -10,3 +10,6 @@ body{
 button, select, i, h1, label, input{
     color:black;
 }
+.clickable{
+    cursor:pointer;
+}

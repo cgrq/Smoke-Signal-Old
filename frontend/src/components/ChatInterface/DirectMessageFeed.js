@@ -1,9 +1,22 @@
-function DirectMessageFeed() {
+import { useSelector, useDispatch } from "react-redux";
+import FeedItem from "../FeedItem";
+import { useEffect } from "react";
+
+function DirectMessageFeed({userChannels}) {
+
     return (
         <div>
-            <h3>test</h3>
+            <h3>Direct Messages</h3>
             <ul>
-                <li></li>
+                {
+                    Object.values(userChannels).map(channel => (
+                        channel.type === "dm" && (
+                            <li key={channel.id}>
+                                <FeedItem channelId={channel.id}  imageSrc={channel.imageUrl} name={channel.name} />
+                            </li>)
+                        )
+                    )
+                }
             </ul>
         </div>
     )
