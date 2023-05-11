@@ -8,7 +8,10 @@ import MessageFeed from "./MessageFeed";
 import MessageInputs from "./MessageInputs";
 import ChannelFeed from "./ChannelFeed";
 import DirectMessageFeed from "./DirectMessageFeed";
-import { getUserChannelsThunk, getTeamChannelsThunk } from "../../store/channels";
+import {
+  getUserChannelsThunk,
+  getTeamChannelsThunk,
+} from "../../store/channels";
 
 function ChatInterface({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -23,6 +26,7 @@ function ChatInterface({ isLoaded }) {
     if (sessionUser && sessionUser.id) {
       if (currentTeam && currentTeam.id) {
         dispatch(getTeamChannelsThunk(currentTeam.id));
+        dispatch(getUserChannelsThunk());
       }
       dispatch(getUserTeamsThunk(sessionUser.id));
       // dispatch(getCurrentTeamThunk(currentTeam.id));
@@ -36,6 +40,7 @@ function ChatInterface({ isLoaded }) {
   useEffect(() => {
     if (currentTeam && currentTeam.id) {
       dispatch(getTeamChannelsThunk(currentTeam.id));
+      dispatch(getUserChannelsThunk());
     }
   }, [currentTeam]);
 
@@ -47,7 +52,7 @@ function ChatInterface({ isLoaded }) {
         <div></div>
         {/* Team management*/}
         <TeamManagement />
-        {currentTeam && teamChannels ? (
+        {currentTeam && teamChannels && userChannels ? (
           <>
             {/* Channels */}
             <ChannelFeed
@@ -56,7 +61,7 @@ function ChatInterface({ isLoaded }) {
             />
             {/* Direct Messages */}
             <DirectMessageFeed
-              teamChannels={teamChannels}
+              userChannels={userChannels}
               currentTeamId={currentTeam.id}
             />
           </>

@@ -92,6 +92,14 @@ def create_channel():
     db.session.add(membership)
     db.session.commit()
 
+    if request.json['recipientId']:
+        recipient_membership = ChannelMembership(
+            user_id=request.json['recipientId'],
+            channel_id=new_channel.id
+        )
+        db.session.add(recipient_membership)
+        db.session.commit()
+
     return {'channel': new_channel.to_dict()}
 
 

@@ -5,11 +5,12 @@ import {
   editChannelThunk,
   createChannelThunk,
   getTeamChannelsThunk,
+  getUserChannelsThunk,
 } from "../../store/channels";
 import InputField from "../InputField";
-import "./ChannelFormModal.css";
+import "./DirectMessageFormModal.css";
 
-function ChannelFormModal({ id, componentType, title }) {
+function DirectMessageFormModal({ id, componentType, title }) {
   const dispatch = useDispatch();
 
   const userChannels = useSelector((state) => state.channels.userChannels);
@@ -18,6 +19,7 @@ function ChannelFormModal({ id, componentType, title }) {
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState([]);
+  const [recipientId, setRecipientId] = useState("");
   const { closeModal } = useModal();
 
   useEffect(() => {
@@ -28,13 +30,14 @@ function ChannelFormModal({ id, componentType, title }) {
         setName(channel.name);
         setDescription(channel.description);
         setImageUrl(channel.imageUrl);
+        setRecipientId();
       }
     }
   }, [userChannels]);
 
   useEffect(() => {
-    dispatch(getTeamChannelsThunk(currentTeamId));
-  }, [currentTeamId]);
+    dispatch(getUserChannelsThunk());
+  }, [currentTeamId, dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,9 +46,10 @@ function ChannelFormModal({ id, componentType, title }) {
       id,
       name,
       description,
-      type: "channel",
+      type: "dm",
       imageUrl,
       teamId: currentTeamId,
+      recipientId,
     };
 
     let data;
@@ -97,6 +101,14 @@ function ChannelFormModal({ id, componentType, title }) {
           required={false}
         />
 
+        <InputField
+          label="Recipient"
+          value={recipientId}
+          onChange={(e) => setRecipientId(e.target.value)}
+          placeholder="Enter recipient ID"
+          required={false}
+        />
+
         <button type="submit">
           {componentType === "create" ? "Create " : "Update "}Channel
         </button>
@@ -105,4 +117,4 @@ function ChannelFormModal({ id, componentType, title }) {
   );
 }
 
-export default ChannelFormModal;
+export default DirectMessageFormModal;
