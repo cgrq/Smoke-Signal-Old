@@ -68,9 +68,7 @@ function ChannelFormModal({ id, componentType, title }) {
     <>
       <h1>{title}</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
-        {Object.values(errors).length > 0 && (
-                  <ErrorHandler errors={errors} />
-                )}
+        {Object.values(errors).length > 0 && <ErrorHandler errors={errors} />}
 
         <InputField
           label="Name"

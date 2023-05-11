@@ -14,7 +14,7 @@ class Message(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     # Table Keys
-    message = db.Column(db.String(2000))
+    message = db.Column(db.String(700))
     sent_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     # Foreign Keys

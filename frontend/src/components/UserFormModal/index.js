@@ -3,8 +3,9 @@ import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp, editUser } from "../../store/session";
 import "./UserFormModal.css";
+import ErrorHandler from "../ErrorHandler";
 
-function UserFormModal({componentType}) {
+function UserFormModal({ componentType }) {
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -17,20 +18,39 @@ function UserFormModal({componentType}) {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-      console.log(`🖥 ~ file: index.js:27 ~ handleSubmit ~ componentType:`, componentType)
+      console.log(
+        `🖥 ~ file: index.js:27 ~ handleSubmit ~ componentType:`,
+        componentType
+      );
 
-      const data = componentType === "update"
-          ? await dispatch(editUser(username, email, password, firstName, lastName, profileImageUrl))
-          : await dispatch(signUp(username, email, password, firstName, lastName, profileImageUrl))
+      const data =
+        componentType === "update"
+          ? await dispatch(
+              editUser(
+                username,
+                email,
+                password,
+                firstName,
+                lastName,
+                profileImageUrl
+              )
+            )
+          : await dispatch(
+              signUp(
+                username,
+                email,
+                password,
+                firstName,
+                lastName,
+                profileImageUrl
+              )
+            );
       if (data) {
         setErrors(data);
       } else {
-
         closeModal();
       }
     } else {
@@ -42,22 +62,23 @@ function UserFormModal({componentType}) {
 
   useEffect(() => {
     if (componentType === "update" && sessionUser) {
-        setFirstName(sessionUser.first_name);
-        setLastName(sessionUser.last_name)
-        setEmail(sessionUser.email)
-        setProfileImageUrl(sessionUser.profile_image_url)
-        setUsername(sessionUser.username)
+      setFirstName(sessionUser.first_name);
+      setLastName(sessionUser.last_name);
+      setEmail(sessionUser.email);
+      setProfileImageUrl(sessionUser.profile_image_url);
+      setUsername(sessionUser.username);
     }
   }, [sessionUser]);
 
   return (
     <>
-      <h1 className="sign-up-modal-h1">{componentType === "update" ? "Edit user" : "Sign up"}</h1>
+      <h1 className="sign-up-modal-h1">
+        {componentType === "update" ? "Edit user" : "Sign up"}
+      </h1>
       <form className="sign-up-modal-form" onSubmit={handleSubmit}>
+        {Object.values(errors).length > 0 && <ErrorHandler errors={errors} />}
         <div>
-          <label>
-            First Name
-          </label>
+          <label>First Name</label>
           <input
             type="text"
             value={firstName}
@@ -66,9 +87,7 @@ function UserFormModal({componentType}) {
           />
         </div>
         <div>
-          <label>
-            Last Name
-          </label>
+          <label>Last Name</label>
           <input
             type="text"
             value={lastName}
@@ -77,9 +96,7 @@ function UserFormModal({componentType}) {
           />
         </div>
         <div>
-          <label>
-            Email
-          </label>
+          <label>Email</label>
           <input
             type="text"
             value={email}
@@ -88,9 +105,7 @@ function UserFormModal({componentType}) {
           />
         </div>
         <div>
-          <label>
-            Username
-          </label>
+          <label>Username</label>
           <input
             type="text"
             value={username}
@@ -99,20 +114,16 @@ function UserFormModal({componentType}) {
           />
         </div>
         <div>
-          <label>
-            Profile Image
-          </label>
+          <label>Profile Image</label>
           <input
             type="text"
             value={profileImageUrl}
             onChange={(e) => setProfileImageUrl(e.target.value)}
-            required
+            placeholder="Optional"
           />
         </div>
         <div>
-          <label>
-            Password
-          </label>
+          <label>Password</label>
           <input
             type="password"
             value={password}
@@ -121,10 +132,7 @@ function UserFormModal({componentType}) {
           />
         </div>
         <div>
-
-          <label>
-            Confirm Password
-          </label>
+          <label>Confirm Password</label>
           <input
             type="password"
             value={confirmPassword}
@@ -132,13 +140,10 @@ function UserFormModal({componentType}) {
             required
           />
         </div>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
 
-        <button className="login-modal-button"  type="submit">{componentType === "update"? "Edit user" : "Sign Up"}</button>
+        <button className="login-modal-button" type="submit">
+          {componentType === "update" ? "Edit user" : "Sign Up"}
+        </button>
       </form>
     </>
   );

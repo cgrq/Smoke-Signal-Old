@@ -15,8 +15,8 @@ class Team(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     # Table Keys
-    name = db.Column(db.String(255), nullable=False)
-    image_url = db.Column(db.String(255))
+    name = db.Column(db.String(50), nullable=False)
+    image_url = db.Column(db.String(50))
 
     # Foreign Keys
     users = db.relationship(TeamMembership, back_populates="teams")
