@@ -78,6 +78,11 @@ def update_team(id):
     """
     Route to update a single team by team id
     """
+    userId = current_user.id
+    isOwner = TeamMembership.query.where(TeamMembership.user_id == userId)
+    if not isOwner:
+        return {"errors": "User is not the owner of this team"}
+    
     form = TeamForm()
     # Get the csrf_token from the request cookie and put it into the
     # form manually to validate_on_submit can be used
@@ -101,6 +106,11 @@ def delete_team(id):
     """
     Route to delete a single team by team id
     """
+    userId = current_user.id
+    isOwner = TeamMembership.query.where(TeamMembership.user_id == userId)
+    if not isOwner:
+        return {"errors": "User is not the owner of this team"}
+    
     team = Team.query.get(id)
     db.session.delete(team)
     db.session.commit()
