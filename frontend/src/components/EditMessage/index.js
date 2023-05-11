@@ -1,17 +1,25 @@
 import { useDispatch } from "react-redux";
 import InputField from "../InputField";
-import { useState } from "react";
-import {
-  editMessageThunk,
-  getChannelMessagesThunk,
-} from "../../store/messages";
+import { useEffect, useState } from "react";
+import { editMessageThunk } from "../../store/messages";
 import { useModal } from "../../context/Modal";
+import { io } from "socket.io-client";
+
+let socketio;
 
 const EditMessage = ({ message }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-
   const [newMessage, setNewMessage] = useState(message.message);
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    socketio = io();
+
+    setSocket(socketio);
+
+    return () => socketio.disconnect();
+  }, [message.channelId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,8 +27,7 @@ const EditMessage = ({ message }) => {
     message.message = newMessage;
     message.channelId = message.channel_id;
     await dispatch(editMessageThunk(message));
-
-    await dispatch(getChannelMessagesThunk(message.channelId));
+    socket.emit("message sent", { room: message.channelId });
 
     closeModal();
   };
