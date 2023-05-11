@@ -3,7 +3,9 @@ from flask_login import login_required, current_user
 from ..forms import TeamForm
 from app.models import Team, TeamMembership, db
 
+
 team_routes = Blueprint('teams', __name__)
+
 
 def validation_errors_to_error_messages(validation_errors):
     """
@@ -15,6 +17,7 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
+
 @team_routes.route('/')
 # @login_required
 def all_teams():
@@ -23,7 +26,8 @@ def all_teams():
     """
 
     teams = Team.query.all()
-    return {"teams": [team.to_dict() for team in teams] }
+    return {"teams": [team.to_dict() for team in teams]}
+
 
 @team_routes.route('/new', methods=['POST'])
 @login_required
@@ -36,29 +40,28 @@ def new_team():
     # form manually to validate_on_submit can be used
     form['csrf_token'].data = request.cookies['csrf_token']
 
-
-    if not form.validate_on_submit(): # only runs for a 'POST' route
-        return {"errors":validation_errors_to_error_messages(form.errors)}, 401
+    if not form.validate_on_submit():  # only runs for a 'POST' route
+        return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
     p = request.json
     team = Team(
         name=p["name"],
-        image_url=p["imageUrl"]
+        image_url=p["imageUrl"] if p["imageUrl"] else './static/test_image.png'
     )
 
     db.session.add(team)
     db.session.commit()
 
     team_membership = TeamMembership(
-        status = 'owner',
-        team_id = team.id,
-        user_id = current_user.get_id()
+        status='owner',
+        team_id=team.id,
+        user_id=current_user.get_id()
     )
 
     db.session.add(team_membership)
     db.session.commit()
 
-    return {"team":team.to_dict()}
+    return {"team": team.to_dict()}
 
 
 @team_routes.route('/<int:id>')
@@ -68,8 +71,8 @@ def team_id(id):
     """
     team = Team.query.get(id)
     if not team:
-        return { "errors": "Team does not exist" }
-    return {"team":team.to_dict()}
+        return {"errors": "Team does not exist"}
+    return {"team": team.to_dict()}
 
 
 @team_routes.route('/<int:id>/update', methods=['PUT'])
@@ -83,17 +86,18 @@ def update_team(id):
     # form manually to validate_on_submit can be used
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if not form.validate_on_submit(): # only runs for a 'POST' route
-        return {"errors":validation_errors_to_error_messages(form.errors)}, 401
+    if not form.validate_on_submit():  # only runs for a 'POST' route
+        return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
     p = request.json
     team = Team.query.get(id)
 
     team.name = p['name']
-    team.image_url = p['imageUrl']
+    team.image_url = p['imageUrl'] if p['imageUrl'] else './static/test_image.png'
 
     db.session.commit()
-    return {"team":team.to_dict()}
+    return {"team": team.to_dict()}
+
 
 @team_routes.route('/<int:id>/delete', methods=['DELETE'])
 @login_required
@@ -107,4 +111,4 @@ def delete_team(id):
 
     defaultTeam = Team.query.get(4)
 
-    return {"team":defaultTeam.to_dict()}
+    return {"team": defaultTeam.to_dict()}
