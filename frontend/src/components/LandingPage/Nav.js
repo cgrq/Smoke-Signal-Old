@@ -5,7 +5,7 @@ import lottie from 'lottie-web';
 import { logout } from "../../store/session";
 import OpenLandingPageModalButton from "../OpenLandingPageModalButton";
 import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+import UserFormModal from "../UserFormModal";
 import animationData from "./smoke-signal.json"
 
 function Nav() {
@@ -54,7 +54,7 @@ function Nav() {
           fillBackground={true}
           buttonText="Sign Up"
           onItemClick={closeMenu}
-          modalComponent={<SignupFormModal />}
+          modalComponent={<UserFormModal />}
         />
         <OpenLandingPageModalButton
           buttonText="Log In"

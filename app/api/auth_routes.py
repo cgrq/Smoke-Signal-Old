@@ -1,7 +1,6 @@
 from flask import Blueprint, request
 from app.models import User, TeamMembership, db
-from app.forms import LoginForm
-from app.forms import SignUpForm
+from app.forms import LoginForm, SignUpForm, EditUserForm
 from flask_login import current_user, login_user, logout_user
 
 auth_routes = Blueprint('auth', __name__)
@@ -87,6 +86,34 @@ def sign_up():
         db.session.commit()
 
         login_user(user)
+        return {"user": user.to_dict()}
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@auth_routes.route('/edit', methods=['PUT'])
+def edit():
+    """
+    Edits an existing user's information
+    """
+    print("HITTING EDIT ROUTE ~~~~~~")
+    form = EditUserForm()
+    print("FORM", form)
+    form['csrf_token'].data = request.cookies['csrf_token']
+    print("FORM TOKEN", form['csrf_token'].data)
+    if form.validate_on_submit():
+        print("VALIDATE")
+        user = User.query.get(current_user.id)
+        print("USER ~!!!!!!~")
+        print(user.to_dict())
+
+        user.username = form.data['username']
+        user.email = form.data['email']
+        user.password = form.data['password']
+        user.firstName = form.data['firstName']
+        user.lastName = form.data['lastName']
+        user.profile_image_url = form.data['profileImageUrl']
+
+        db.session.commit()
+
         return {"user": user.to_dict()}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
