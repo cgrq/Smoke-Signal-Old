@@ -101,11 +101,10 @@ export const updateTeamThunk = (team) => async (dispatch) => {
 
 // Delete a team thunk
 export const deleteTeamThunk = (id) => async (dispatch) => {
-    console.log("BEFORE!")
+    console.log(`🖥 ~ file: teams.js:104 ~ deleteTeamThunk ~ id:`, id)
     const response = await fetch(`/api/teams/${id}/delete`, {
         method: 'DELETE'
     });
-    console.log("AFTER!")
 
 
     if (response.ok) {

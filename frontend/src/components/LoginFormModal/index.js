@@ -17,7 +17,7 @@ function LoginFormModal() {
     if (data) {
       setErrors(data);
     } else {
-        closeModal()
+      closeModal()
     }
   };
 
@@ -27,7 +27,7 @@ function LoginFormModal() {
     if (data) {
       setErrors(data);
     } else {
-        closeModal()
+      closeModal()
     }
   }
 
@@ -37,45 +37,54 @@ function LoginFormModal() {
     if (data) {
       setErrors(data);
     } else {
-        closeModal()
+      closeModal()
     }
   }
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="log-in-modal-h1">Login</h1>
+      <form className="log-in-modal-form" onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
-          Email
+        <div>
+          <label>
+            Email
+          </label>
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Password
+        </div>
+
+        <div>
+          <label>
+            Password
+          </label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <button type="submit">Log In</button>
+        </div>
+
+        <button className="login-modal-button" type="submit">Log In</button>
       </form>
-      <button onClick={loginDemoOne}>
-        Demo User-1
-      </button>
-      <button onClick={loginDemoTwo}>
-        Demo User-2
-      </button>
+      <hr></hr>
+      <div>
+        <button className="login-modal-button login-modal-demo-button" onClick={loginDemoOne}>
+          Demo User-1
+        </button>
+        <button className="login-modal-button login-modal-demo-button" onClick={loginDemoTwo}>
+          Demo User-2
+        </button>
+      </div>
     </>
   );
 }

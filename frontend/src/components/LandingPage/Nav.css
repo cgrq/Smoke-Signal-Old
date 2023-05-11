@@ -9,3 +9,15 @@
     margin:0 auto;
     margin-top:40px;
 }
+
+.landing-page-logo-wrapper{
+    position: relative;
+    width:20px;
+}
+
+.landing-page-smoke-signal{
+    position: absolute;
+    width: 160px;
+    left:-70px;
+    top:-106px;
+}
