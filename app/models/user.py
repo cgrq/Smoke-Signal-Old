@@ -1,5 +1,5 @@
 from datetime import datetime
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .db import db, environment, SCHEMA
 from .team_memberships import TeamMembership
 from .channel_memberships import ChannelMembership
 from werkzeug.security import generate_password_hash, check_password_hash

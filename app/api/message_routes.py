@@ -57,8 +57,6 @@ def create_message():
 
     data = form.data
 
-    
-
     new_message = Message(
         message=data['message'],
         user_id=current_user.id,
