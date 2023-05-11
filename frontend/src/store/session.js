@@ -159,6 +159,24 @@ export const editUser =
       }
     };
 
+// Delete a user thunk
+export const deleteUser = (id) => async (dispatch) => {
+  const response = await fetch(`/api/auth/delete`, {
+      method: 'DELETE'
+  });
+
+
+  if (response.ok) {
+      const team = await response.json();
+      dispatch(removeUser());
+      return null;
+  } else {
+      const errorResponse = await response.json();
+      return errorResponse.errors;
+  }
+};
+
+
 const initialState = { user: null, teamUsers: {} };
 
 export default function reducer(state = initialState, action) {

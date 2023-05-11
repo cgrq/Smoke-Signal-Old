@@ -117,6 +117,17 @@ def edit():
         return {"user": user.to_dict()}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+@auth_routes.route('/delete', methods=['DELETE'])
+def delete_team():
+    """
+    Route to delete a user
+    """
+    user = User.query.get(current_user.id)
+    db.session.delete(user)
+    db.session.commit()
+
+    return {"message":"Delete successful"}
+
 
 @auth_routes.route('/unauthorized')
 def unauthorized():
