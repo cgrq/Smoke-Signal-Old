@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { deleteChannelThunk, getUserChannelsThunk, resetCurrentChannel } from "../../store/channels";
+import { deleteChannelThunk, resetCurrentChannel, getTeamChannelsThunk } from "../../store/channels";
 import "./DeleteChannelModal.css";
 
 function DeleteChannelModal({id }) {
   const dispatch = useDispatch();
+  const currentTeamId = useSelector((state) => state.teams.currentTeam.id);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
@@ -16,7 +17,7 @@ function DeleteChannelModal({id }) {
     if (data) {
       setErrors(data);
     } else {
-      await dispatch(getUserChannelsThunk());
+      await dispatch(getTeamChannelsThunk(currentTeamId));
       dispatch(resetCurrentChannel());
       closeModal();
     }

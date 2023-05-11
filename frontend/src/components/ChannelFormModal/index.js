@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import {
   editChannelThunk,
-  getUserChannelsThunk,
   createChannelThunk,
+  getTeamChannelsThunk
 } from "../../store/channels";
 import InputField from "../InputField";
 import "./ChannelFormModal.css";
@@ -35,7 +35,7 @@ function ChannelFormModal({ id, componentType, title }) {
   }, [userChannels]);
 
   useEffect(() => {
-    dispatch(getUserChannelsThunk(id));
+    dispatch(getTeamChannelsThunk(currentTeamId));
   }, [currentTeamId]);
 
   const handleSubmit = async (e) => {
@@ -60,7 +60,7 @@ function ChannelFormModal({ id, componentType, title }) {
     if (data) {
       setErrors(data);
     } else {
-      await dispatch(getUserChannelsThunk());
+      await dispatch(getTeamChannelsThunk(currentTeamId));
       closeModal();
     }
   };

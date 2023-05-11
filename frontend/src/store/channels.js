@@ -183,7 +183,6 @@ const channelsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_CURRENT_CHANNEL: {
       const newState = { ...state };
-
       newState.currentChannel = action.payload.channel;
 
       return newState;
@@ -209,7 +208,7 @@ const channelsReducer = (state = initialState, action) => {
       return newState;
     }
     case GET_TEAM_CHANNELS: {
-      const newState = { ...state };
+      const newState = { ...state, teamChannels: { ...state.teamChannels } };
 
       // Normalize data
       const channels = {};
