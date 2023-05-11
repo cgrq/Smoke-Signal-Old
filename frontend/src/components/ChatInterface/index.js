@@ -16,6 +16,7 @@ function ChatInterface({ isLoaded }) {
   const currentTeam = useSelector((state) => state.teams.currentTeam);
   const currentChannel = useSelector((state) => state.channels.currentChannel);
   const userChannels = useSelector((state) => state.channels.userChannels);
+  const teamChannels = useSelector((state) => state.channels.teamChannels);
   const [newMessage, setNewMessage] = useState("");
 
   useEffect(() => {
@@ -38,16 +39,16 @@ function ChatInterface({ isLoaded }) {
         <div></div>
         {/* Team management*/}
         <TeamManagement />
-        {currentTeam && userChannels ? (
+        {currentTeam && teamChannels ? (
           <>
             {/* Channels */}
             <ChannelFeed
-              userChannels={userChannels}
+              teamChannels={teamChannels}
               currentTeamId={currentTeam.id}
             />
             {/* Direct Messages */}
             <DirectMessageFeed
-              userChannels={userChannels}
+              teamChannels={teamChannels}
               currentTeamId={currentTeam.id}
             />
           </>
