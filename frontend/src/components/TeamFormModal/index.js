@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import { createNewTeamThunk, updateTeamThunk, getAllTeamsThunk,getUserTeamsThunk } from "../../store/teams";
 import InputField from "../InputField";
 import Button from "../Button";
+import ErrorHandler from "../ErrorHandler";
 import "./TeamFormModal.css";
 
 function TeamFormModal({ type, title }) {
@@ -49,11 +50,9 @@ function TeamFormModal({ type, title }) {
     <>
       <h1>{title}</h1>
       <form onSubmit={(e)=>handleSubmit(e)}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
+        {Object.values(errors).length > 0 && (
+                  <ErrorHandler errors={errors} />
+                )}
 
         <InputField
           label="Name"
@@ -63,13 +62,13 @@ function TeamFormModal({ type, title }) {
           required={true}
         />
 
-        <InputField
+        {/* <InputField
           label="Team Image"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
           placeholder="Image to represent the team"
           required={false}
-        />
+        /> */}
 
         <button type="submit">{type === 'create' ? 'Create ' : 'Update '}Team</button>
 

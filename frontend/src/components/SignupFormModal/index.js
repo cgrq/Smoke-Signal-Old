@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
+import ErrorHandler from "../ErrorHandler";
 import "./SignupFormModal.css";
 
 function SignupFormModal() {
@@ -23,13 +24,10 @@ function SignupFormModal() {
       if (data) {
         setErrors(data);
       } else {
-
         closeModal();
       }
     } else {
-      setErrors([
-        "Confirm Password field must be the same as the Password field",
-      ]);
+      setErrors({ ...errors, password: "Confirm Password field must be the same as the Password field" });
     }
   };
 
@@ -37,6 +35,9 @@ function SignupFormModal() {
     <>
       <h1 className="sign-up-modal-h1">Sign Up</h1>
       <form className="sign-up-modal-form" onSubmit={handleSubmit}>
+          {Object.values(errors).length > 0 && (
+            <ErrorHandler errors={errors} />
+          )}
         <div>
           <label>
             First Name
@@ -89,7 +90,7 @@ function SignupFormModal() {
             type="text"
             value={profileImageUrl}
             onChange={(e) => setProfileImageUrl(e.target.value)}
-            required
+            placeholder="optional profile image"
           />
         </div>
         <div>
@@ -115,11 +116,11 @@ function SignupFormModal() {
             required
           />
         </div>
-        <ul>
+        {/* <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
-        </ul>
+        </ul> */}
 
         <button className="login-modal-button"  type="submit">Sign Up</button>
       </form>
