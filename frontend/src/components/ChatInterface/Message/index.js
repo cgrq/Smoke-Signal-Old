@@ -1,3 +1,4 @@
+import DeleteMessage from "../../DeleteMessage";
 import EditMessage from "../../EditMessage";
 import OpenModalButton from "../../OpenModalButton";
 
@@ -16,6 +17,11 @@ export default function Message({ body, username, timestamp, user, message }) {
             <OpenModalButton
               buttonText={"Edit"}
               modalComponent={<EditMessage message={message} />}
+            />
+
+            <OpenModalButton
+              buttonText={"Delete"}
+              modalComponent={<DeleteMessage message={message} />}
             />
           </>
         )}

@@ -27,6 +27,7 @@ const EditMessage = ({ message }) => {
     message.message = newMessage;
     message.channelId = message.channel_id;
     await dispatch(editMessageThunk(message));
+
     socket.emit("message sent", { room: message.channelId });
 
     closeModal();
