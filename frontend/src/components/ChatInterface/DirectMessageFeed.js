@@ -2,12 +2,12 @@ import { useSelector, useDispatch } from "react-redux";
 import FeedItem from "../FeedItem";
 import { useEffect } from "react";
 
-function DirectMessageFeed({ userChannels, currentTeamId }) {
+function DirectMessageFeed({ teamChannels, currentTeamId }) {
   return (
     <div>
       <h3>Direct Messages</h3>
       <ul>
-        {Object.values(userChannels).map(
+        {Object.values(teamChannels).map(
           (channel) =>
             channel.type === "dm" &&
             channel.teamId === currentTeamId && (

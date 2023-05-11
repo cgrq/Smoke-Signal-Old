@@ -1,7 +1,7 @@
 // Action type constants
 const GET_ALL_CHANNELS = "channels/GET_ALL_CHANNELS";
 const GET_USER_CHANNELS = "channels/GET_USER_CHANNELS";
-const ADD_CURRENT_CHANNEL = 'teams/ADD_CURRENT_CHANNEL';
+const ADD_CURRENT_CHANNEL = "teams/ADD_CURRENT_CHANNEL";
 const GET_TEAM_CHANNELS = "channels/GET_TEAM_CHANNELS";
 const CREATE_CHANNEL = "channels/CREATE_CHANNEL";
 const EDIT_CHANNEL = "channels/EDIT_CHANNEL";
@@ -11,7 +11,7 @@ const RESET_CURRENT_CHANNEL = "channels/RESET_CURRENT_CHANNEL";
 // Action creators
 const addCurrentChannel = (channel) => ({
   type: ADD_CURRENT_CHANNEL,
-  payload: channel
+  payload: channel,
 });
 const getAllChannels = (channels) => ({
   type: GET_ALL_CHANNELS,
@@ -44,7 +44,7 @@ const deleteChannel = (channelId) => ({
 });
 
 export const resetCurrentChannel = () => ({
-  type: RESET_CURRENT_CHANNEL
+  type: RESET_CURRENT_CHANNEL,
 });
 
 // Thunk action creators
@@ -70,7 +70,10 @@ export const getUserChannelsThunk = () => async (dispatch) => {
 
   if (response.ok) {
     const { channels } = await response.json();
-    console.log(`🖥 ~ file: channels.js:68 ~ getUserChannelsThunk ~ channels:`, channels)
+    console.log(
+      `🖥 ~ file: channels.js:68 ~ getUserChannelsThunk ~ channels:`,
+      channels
+    );
     dispatch(getUserChannels(channels));
 
     return channels;
@@ -121,15 +124,14 @@ export const createChannelThunk = (channel) => async (dispatch) => {
 export const getCurrentChannelThunk = (id) => async (dispatch) => {
   const response = await fetch(`/api/channels/${id}`);
   if (response.ok) {
-      const channel = await response.json();
-      dispatch(addCurrentChannel(channel));
-      return null;
+    const channel = await response.json();
+    dispatch(addCurrentChannel(channel));
+    return null;
   } else {
-      const errorResponse = await response.json();
-      return errorResponse.errors;
+    const errorResponse = await response.json();
+    return errorResponse.errors;
   }
 };
-
 
 // Edit channel
 export const editChannelThunk = (channel) => async (dispatch) => {
@@ -170,33 +172,40 @@ export const deleteChannelThunk = (channelId) => async (dispatch) => {
 };
 
 // Channel reducer
-const initialState = { allChannels: {}, currentChannel: null, userChannels: {}, teamChannels: {} };
+const initialState = {
+  allChannels: {},
+  currentChannel: null,
+  userChannels: {},
+  teamChannels: {},
+};
 
 const channelsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_CURRENT_CHANNEL: {
-      const newState = { ...state, currentChannel: { ...state.currentChannel } };
-      newState.currentChannel = action.payload.channel;
-      return newState;
-  }
-    case GET_ALL_CHANNELS: {
       const newState = { ...state };
+
+      newState.currentChannel = action.payload.channel;
+
+      return newState;
+    }
+    case GET_ALL_CHANNELS: {
+      const newState = { ...state, allChannels: { ...state.allChannels } };
 
       // Normalize data
       const channels = {};
       action.payload.forEach((channel) => (channels[channel.id] = channel));
 
-      newState.allChannels = { ...state.allChannels, ...channels };
+      newState.allChannels = { ...channels };
       return newState;
     }
     case GET_USER_CHANNELS: {
-      const newState = { ...state, userChannels:{} };
+      const newState = { ...state, userChannels: { ...state.userChannels } };
 
       // Normalize data
       const channels = {};
       action.payload.forEach((channel) => (channels[channel.id] = channel));
 
-      newState.userChannels = { ...state.userChannels, ...channels };
+      newState.userChannels = { ...channels };
       return newState;
     }
     case GET_TEAM_CHANNELS: {
@@ -206,7 +215,7 @@ const channelsReducer = (state = initialState, action) => {
       const channels = {};
       action.payload.forEach((channel) => (channels[channel.id] = channel));
 
-      newState.teamChannels = { ...state.teamChannels, ...channels };
+      newState.teamChannels = { ...channels };
       return newState;
     }
     case CREATE_CHANNEL: {
