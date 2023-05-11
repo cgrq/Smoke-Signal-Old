@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import UserFormModal from "../UserFormModal";
+import DeleteUserModal from "../DeleteUserModal";
 import "./Navigation.css";
 
 
@@ -66,6 +67,12 @@ function ProfileButton({ user }) {
                   onButtonClick={closeMenu}
                   modalComponent={<UserFormModal componentType={"update"} />}
                 />
+                <OpenModalButton
+                  fillBackground={false}
+                  buttonText="Delete"
+                  onButtonClick={closeMenu}
+                  modalComponent={<DeleteUserModal />}
+                />
                 <button onClick={handleLogout}>Log Out</button>
               </div>
             )
@@ -77,3 +84,5 @@ function ProfileButton({ user }) {
 }
 
 export default ProfileButton;
+
+
