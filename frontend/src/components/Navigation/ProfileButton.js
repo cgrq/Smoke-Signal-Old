@@ -2,11 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+import UserFormModal from "../UserFormModal";
 import "./Navigation.css";
 
-import { Link } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -33,24 +31,20 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  const closeMenu = () => setShowMenu(false);
+  const closeMenu = () => {setShowMenu(false)};
 
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
     closeMenu();
-
   };
-
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-
 
   return (
     <>
       <button className="profile-icon-button" onClick={openMenu}>
         <i className="fas fa-user-circle profile-icon" />
       </button>
-      <div className={`${ulClassName} profile-list`} ref={ulRef}>
+      <div className={`${"profile-dropdown" + (showMenu ? "" : " hidden")} profile-list`} ref={ulRef}>
         <div className={user ? "nav-upper-container" : "hidden"}>
           {
             user
@@ -62,28 +56,20 @@ function ProfileButton({ user }) {
             )
           }
         </div>
-        <div className={`nav-lower-container nav-links ${!user ? `nav-lower-container-logged-out` :""}`}>
+        <div className={`nav-lower-container nav-links ${!user ? `nav-lower-container-logged-out` : ""}`}>
           {
-            user
-              ? (
+            user && (
+              <div>
+                <OpenModalButton
+                  fillBackground={false}
+                  buttonText="Edit"
+                  onButtonClick={closeMenu}
+                  modalComponent={<UserFormModal componentType={"update"} />}
+                />
                 <button onClick={handleLogout}>Log Out</button>
-              )
-              : (
-                <>
-                  <OpenModalButton
-                    buttonText="Log In"
-                    onButtonClick={closeMenu}
-                    modalComponent={<LoginFormModal />}
-                  />
-                  <OpenModalButton
-                    buttonText="Sign Up"
-                    onButtonClick={closeMenu}
-                    modalComponent={<SignupFormModal />}
-                  />
-                </>
-              )
+              </div>
+            )
           }
-
         </div>
       </div>
     </>
