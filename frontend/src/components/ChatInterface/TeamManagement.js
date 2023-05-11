@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserChannelsThunk } from "../../store/channels";
+import { getTeamChannelsThunk } from "../../store/channels";
+import { getUserTeamsThunk } from "../../store/teams";
 import { getCurrentTeamThunk } from "../../store/teams";
 
 import SelectTeamField from "../SelectTeamField/Index"
@@ -12,6 +13,7 @@ import ChannelFormModal from "../ChannelFormModal";
 function TeamManagement() {
     const [currentTeamId, setCurrentTeamId] = useState(4);
     const dispatch = useDispatch();
+    const sessionUserId = useSelector((state) => state.session.user.id)
     const userTeams = useSelector((state) => state.teams.userTeams);
     const [errors, setErrors] = useState({});
 
@@ -22,7 +24,8 @@ function TeamManagement() {
         if (data) {
             setErrors(data);
         } else {
-            dispatch(getUserChannelsThunk())
+            // dispatch(getUserTeamsThunk(sessionUserId));
+            dispatch(getTeamChannelsThunk(currentTeamId));
         }
     };
 
