@@ -27,9 +27,7 @@ function MessageInputs({ channelId }) {
     };
 
     await dispatch(createMessageThunk(message));
-    console.log("MESSAGE SENT");
     socket.emit("message sent", { room: channelId });
-    // socketio.emit("messasge sent", channelId);
 
     setNewMessage("");
   };

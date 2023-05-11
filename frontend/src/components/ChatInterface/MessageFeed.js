@@ -8,32 +8,24 @@ let socketio;
 
 function MessageFeed({ channelId }) {
   const dispatch = useDispatch();
-
+  const user = useSelector((state) => state.session.user);
   const messages = useSelector((state) => state.messages.channelMessages);
 
   // const [messages, setMessages] = useState(msgs);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  useEffect(() => {}, [channelId]);
-
   useEffect(() => {
     dispatch(getChannelMessagesThunk(channelId)).then(() => setIsLoaded(true));
 
     socketio = io();
+
     socketio.emit("join", channelId);
 
-    // socketio.on("message", (channelId) => {
-      // console.log("CHANNEL =>", channelId);
-    // });
-
     socketio.on(`message received`, async () => {
-      // console.log("***MESSAGE RECIEVED IN THE FEED***");
       dispatch(getChannelMessagesThunk(channelId));
     });
 
     return () => {
-      // console.log("WE:RE DISCONNECTING");
-      // console.log("THESE OUR MESSAGES", messages)
       socketio.disconnect();
     };
   }, [channelId]);
@@ -49,7 +41,8 @@ function MessageFeed({ channelId }) {
               body={message.message}
               username={message.username}
               timestamp={message.sent_at}
-              key={message.id}
+              user={user}
+              message={message}
             />
           </div>
         ))}
