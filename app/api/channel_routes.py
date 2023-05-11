@@ -75,7 +75,7 @@ def create_channel():
         name=data['name'],
         description=data['description'],
         type=data['type'],
-        image_url=data['imageUrl'],
+        image_url=data['imageUrl'] if data["imageUrl"] else './static/test_image.png',
         team_id=data['teamId'],
     )
 
@@ -141,7 +141,7 @@ def edit_channel(channel_id):
         channel.name = data['name']
         channel.description = data['description']
         channel.type = data['type']
-        channel.image_url = data['imageUrl']
+        channel.image_url = data['imageUrl'] if data["imageUrl"] else './static/test_image.png'
         channel.team_id = data['teamId']
 
         db.session.commit()

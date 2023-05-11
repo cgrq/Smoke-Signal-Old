@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import ErrorHandler from "../ErrorHandler";
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -17,7 +18,7 @@ function LoginFormModal() {
     if (data) {
       setErrors(data);
     } else {
-      closeModal()
+      closeModal();
     }
   };
 
@@ -45,11 +46,9 @@ function LoginFormModal() {
     <>
       <h1 className="log-in-modal-h1">Login</h1>
       <form className="log-in-modal-form" onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
+          {Object.values(errors).length > 0 && (
+                <ErrorHandler errors={errors} />
+              )}
         <div>
           <label>
             Email

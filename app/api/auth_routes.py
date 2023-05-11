@@ -71,7 +71,7 @@ def sign_up():
             first_name=form.data['firstName'],
             last_name=form.data['lastName'],
             status=form.data['status'],
-            profile_image_url=form.data['profileImageUrl']
+            profile_image_url=form.data['profileImageUrl'] if form.data['profileImageUrl'] else './static/test_image.png'
         )
         db.session.add(user)
         db.session.commit()

@@ -6,6 +6,7 @@ import {
   createChannelThunk,
   getTeamChannelsThunk,
 } from "../../store/channels";
+import ErrorHandler from "../ErrorHandler";
 import InputField from "../InputField";
 import "./ChannelFormModal.css";
 
@@ -67,11 +68,9 @@ function ChannelFormModal({ id, componentType, title }) {
     <>
       <h1>{title}</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
+        {Object.values(errors).length > 0 && (
+                  <ErrorHandler errors={errors} />
+                )}
 
         <InputField
           label="Name"
@@ -93,7 +92,7 @@ function ChannelFormModal({ id, componentType, title }) {
           label="Channel Image"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-          placeholder="Image to represent the channel"
+          placeholder="Optional image"
           required={false}
         />
 
