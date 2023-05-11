@@ -1,14 +1,13 @@
 import os
 
-from flask_login import current_user, login_required
-from flask_socketio import SocketIO, emit, join_room, leave_room
-from app.models import Message, db
+from flask_login import login_required
+from flask_socketio import SocketIO, join_room
 
 # Set cors policy
 if os.environ.get("FLASK_ENV") == "production":
     origins = [
-        "http://smoke-signal.onrender.com/",
-        "https://smoke-signal.onrender.com/",
+        "http://smoke-signal.onrender.com",
+        "https://smoke-signal.onrender.com",
     ]
 else:
     origins = "*"
@@ -17,23 +16,10 @@ else:
 socketio = SocketIO(cors_allowed_origins=origins)
 
 
-# @socketio.on("message sent")
-# @login_required
-# def handle_connection(channel_id):
-#     print(f"\n****You are connected on {channel_id}\n")
-#     emit(f"message sent from {channel_id['channelId']}", channel_id, broadcast=True)
-#     emit("message sent", channel_id)
-
 @socketio.on('connect')
 @login_required
 def on_connect():
-    # join_room("General")
-    # joing_room(f"Channel {channel_id}")
-    # print("\nJOINED ROOM GENERAL\n", data)
-
-    # send("YOU'RE CONNECTED", to='General')
     socketio.emit("message", "THIS IS DATA", room="General")
-    # emit("message sent", broadcast=True)
 
 
 @socketio.on('join')

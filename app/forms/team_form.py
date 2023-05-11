@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
-from wtforms.validators import DataRequired, ValidationError, URL
-from app.models import Team
+from wtforms.validators import DataRequired, URL
 
 
 class TeamForm(FlaskForm):
