@@ -15,6 +15,19 @@ def users():
     return {'users': [user.to_dict() for user in users]}
 
 
+@user_routes.route('/team/<int:id>')
+@login_required
+def team_users(id):
+    """
+    Query for all users in a team and return them in a dictionary
+    """
+    memberships = TeamMembership.query.where(TeamMembership.team_id == id)
+    user_ids = [member.user_id for member in memberships]
+    users = [User.query.get(id) for id in user_ids]
+
+    return {'users': [user.to_dict() for user in users]}
+
+
 @user_routes.route('/<int:id>')
 @login_required
 def user(id):
