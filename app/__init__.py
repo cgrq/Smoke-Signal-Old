@@ -9,7 +9,7 @@ from .models import db, User
 from .api import api
 from .seeds import seed_commands
 from .config import Config
-from .socket import socket
+from .socket import socketio
 
 app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
 
@@ -31,7 +31,7 @@ app.register_blueprint(api, url_prefix='/api')
 db.init_app(app)
 
 Migrate(app, db)
-socket.init_app(app)
+socketio.init_app(app)
 
 # Application Security
 CORS(app)
@@ -94,4 +94,4 @@ def not_found(e):
 
 
 if __name__ == '__main__':
-    socket.run(app)
+    socketio.run(app)
