@@ -8,7 +8,7 @@ import MessageFeed from "./MessageFeed";
 import MessageInputs from "./MessageInputs";
 import ChannelFeed from "./ChannelFeed";
 import DirectMessageFeed from "./DirectMessageFeed";
-import { getUserChannelsThunk } from "../../store/channels";
+import { getUserChannelsThunk, getTeamChannelsThunk } from "../../store/channels";
 
 function ChatInterface({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -21,15 +21,23 @@ function ChatInterface({ isLoaded }) {
 
   useEffect(() => {
     if (sessionUser && sessionUser.id) {
+      if (currentTeam && currentTeam.id) {
+        dispatch(getTeamChannelsThunk(currentTeam.id));
+      }
       dispatch(getUserTeamsThunk(sessionUser.id));
       // dispatch(getCurrentTeamThunk(currentTeam.id));
-      dispatch(getUserChannelsThunk());
     }
   }, [sessionUser]);
 
   useEffect(() => {
     dispatch(getCurrentTeamThunk(4));
   }, []);
+
+  useEffect(() => {
+    if (currentTeam && currentTeam.id) {
+      dispatch(getTeamChannelsThunk(currentTeam.id));
+    }
+  }, [currentTeam]);
 
   return (
     <div className="chat-interface-main-wrapper">
