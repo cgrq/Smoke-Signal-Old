@@ -15,7 +15,11 @@ function Navigation({ isLoaded }) {
   const [errors, setErrors] = useState({});
   const sessionUser = useSelector((state) => state.session.user);
   const userTeams = useSelector((state) => state.teams.userTeams);
+  
 
+  
+
+  
   useEffect(() => {
     if(sessionUser) {
       dispatch(getUserTeamsThunk(sessionUser.id))
@@ -65,6 +69,7 @@ function Navigation({ isLoaded }) {
               buttonText="Delete current team"
               modalComponent={
                 <DeleteTeamModal />
+          
               }
             />
           </li>
