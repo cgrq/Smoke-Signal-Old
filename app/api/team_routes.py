@@ -118,3 +118,17 @@ def delete_team(id):
     defaultTeam = Team.query.get(4)
 
     return {"team":defaultTeam.to_dict()}
+
+
+@team_routes.route("/current")
+@login_required
+def current_user_teams():
+    """
+    Query for all teams that the user owns
+    """
+    user_owned_teams = Team.query.join(TeamMembership).filter_by(
+        TeamMembership.user_id == current_user.id and TeamMembership.status == "owner")
+
+    user_owned_teams = [Team.to_dict() for team in user_owned_teams]
+    
+    return {"userOwnedTeams": user_owned_teams}

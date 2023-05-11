@@ -40,16 +40,3 @@ def user_teams(id):
 
     return {"userTeams": user_teams}
 
-
-@user_routes.route("/teams/current")
-@login_required
-def current_user_teams():
-    """
-    Query for all teams that the user owns
-    """
-    user_owned_teams = Team.query.join(TeamMembership).filter_by(
-        TeamMembership.user_id == current_user.id and TeamMembership.status == "owner")
-
-    user_owned_teams = [Team.to_dict() for team in user_owned_teams]
-    
-    return {"userOwnedTeams": user_owned_teams}
