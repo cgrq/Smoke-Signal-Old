@@ -9,6 +9,7 @@ import {
 } from "../../store/channels";
 import InputField from "../InputField";
 import "./DirectMessageFormModal.css";
+import ErrorHandler from "../ErrorHandler";
 
 function DirectMessageFormModal({ id, componentType, title }) {
   const dispatch = useDispatch();
@@ -71,11 +72,7 @@ function DirectMessageFormModal({ id, componentType, title }) {
     <>
       <h1>{title}</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
+        {Object.values(errors).length > 0 && <ErrorHandler errors={errors} />}
 
         <InputField
           label="Name"

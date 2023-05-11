@@ -15,10 +15,10 @@ class Channel(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     # Table Keys
-    name = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(2000))
-    type = db.Column(db.String(150))
-    image_url = db.Column(db.String(255))
+    name = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.String(100))
+    type = db.Column(db.String(50))
+    image_url = db.Column(db.String(50))
 
     # Foreign Keys
     team_id = db.Column(db.Integer, db.ForeignKey(

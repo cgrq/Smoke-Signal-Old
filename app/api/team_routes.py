@@ -46,7 +46,7 @@ def new_team():
     p = request.json
     team = Team(
         name=p["name"],
-        image_url=p["imageUrl"] if p["imageUrl"] else './static/test_image.png'
+        image_url=p["imageUrl"] if p["imageUrl"] else '../test_image.png'
     )
 
     db.session.add(team)
@@ -93,7 +93,7 @@ def update_team(id):
     team = Team.query.get(id)
 
     team.name = p['name']
-    team.image_url = p['imageUrl'] if p['imageUrl'] else './static/test_image.png'
+    team.image_url = p['imageUrl'] if p['imageUrl'] else '../test_image.png'
 
     db.session.commit()
     return {"team": team.to_dict()}

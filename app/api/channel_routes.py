@@ -75,7 +75,7 @@ def create_channel():
         name=data['name'],
         description=data['description'],
         type=data['type'],
-        image_url=data['imageUrl'] if data["imageUrl"] else './static/test_image.png',
+        image_url=data['imageUrl'] if data["imageUrl"] else '../test_image.png',
         team_id=data['teamId'],
     )
 
@@ -92,13 +92,18 @@ def create_channel():
     db.session.add(membership)
     db.session.commit()
 
-    if request.json['recipientId']:
-        recipient_membership = ChannelMembership(
-            user_id=request.json['recipientId'],
-            channel_id=new_channel.id
-        )
-        db.session.add(recipient_membership)
-        db.session.commit()
+    # if request.json['recipientId']:
+    try:
+        if request.json['recipientId']:
+            recipient_membership = ChannelMembership(
+                user_id=request.json['recipientId'],
+                channel_id=new_channel.id
+            )
+            db.session.add(recipient_membership)
+            db.session.commit()
+
+    except (KeyError):
+        pass
 
     return {'channel': new_channel.to_dict()}
 
@@ -141,7 +146,7 @@ def edit_channel(channel_id):
         channel.name = data['name']
         channel.description = data['description']
         channel.type = data['type']
-        channel.image_url = data['imageUrl'] if data["imageUrl"] else './static/test_image.png'
+        channel.image_url = data['imageUrl'] if data["imageUrl"] else '../test_image.png'
         channel.team_id = data['teamId']
 
         db.session.commit()
