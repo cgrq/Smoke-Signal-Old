@@ -124,13 +124,16 @@ const initialState = { channelMessages: {}, userMessages: {} };
 const messageReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CHANNEL_MESSAGES: {
-      const newState = { ...state };
+      const newState = {
+        ...state,
+        channelMessages: { ...state.channelMessages },
+      };
 
       // Normalize data
       const messages = {};
       action.payload.forEach((message) => (messages[message.id] = message));
 
-      newState.channelMessages = { ...state.channelMessages, ...messages };
+      newState.channelMessages = { ...messages };
       return newState;
     }
 
