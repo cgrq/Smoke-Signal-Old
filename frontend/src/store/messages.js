@@ -75,7 +75,7 @@ export const createMessageThunk = (message) => async (dispatch) => {
     const { message } = await response.json();
     dispatch(createMessage(message));
 
-    return message;
+    return null;
   }
 
   const errors = await response.json();
@@ -94,7 +94,7 @@ export const editMessageThunk = (message) => async (dispatch) => {
     const { message } = await response.json();
     dispatch(editMessage(message));
 
-    return message;
+    return null;
   }
 
   const errors = await response.json();
@@ -111,7 +111,7 @@ export const deleteMessageThunk = (messageId) => async (dispatch) => {
     const successMessage = await response.json();
     dispatch(deleteMessage(messageId));
 
-    return successMessage;
+    return null;
   }
 
   const errors = await response.json();
