@@ -4,6 +4,8 @@ import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import "./Navigation.css";
+
 import { Link } from "react-router-dom";
 
 function ProfileButton({ user }) {
@@ -31,48 +33,59 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  const closeMenu = () => setShowMenu(false);
+
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    closeMenu();
+
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-  const closeMenu = () => setShowMenu(false);
+
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+      <button className="profile-icon-button" onClick={openMenu}>
+        <i className="fas fa-user-circle profile-icon" />
       </button>
-      <ul
-        style={{ backgroundColor: "white", border: "1px solid black" }}
-        className={ulClassName}
-        ref={ulRef}
-      >
-        {user ? (
-          <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={handleLogout}>Log Out</button>
-            </li>
-          </>
-        ) : (
-          <>
-            <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
+      <div className={`${ulClassName} profile-list`} ref={ulRef}>
+        <div className={user ? "nav-upper-container" : "hidden"}>
+          {
+            user
+            && (
+              <>
+                <div>Hello, {user.firstName}</div>
+                <div className="nav-user-email">{user.email}</div>
+              </>
+            )
+          }
+        </div>
+        <div className={`nav-lower-container nav-links ${!user ? `nav-lower-container-logged-out` :""}`}>
+          {
+            user
+              ? (
+                <button onClick={handleLogout}>Log Out</button>
+              )
+              : (
+                <>
+                  <OpenModalButton
+                    buttonText="Log In"
+                    onButtonClick={closeMenu}
+                    modalComponent={<LoginFormModal />}
+                  />
+                  <OpenModalButton
+                    buttonText="Sign Up"
+                    onButtonClick={closeMenu}
+                    modalComponent={<SignupFormModal />}
+                  />
+                </>
+              )
+          }
 
-            <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            />
-          </>
-        )}
-      </ul>
+        </div>
+      </div>
     </>
   );
 }

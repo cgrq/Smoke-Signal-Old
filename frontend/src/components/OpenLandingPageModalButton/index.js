@@ -1,8 +1,8 @@
 import React from 'react';
 import { useModal } from '../../context/Modal';
-import "./OpenModalButton.css"
+import "./OpenLandingPageModalButton.css"
 
-function OpenModalButton({
+function OpenLandingPageModalButton({
   fillBackground, // boolean to either fill background of button or not
   modalComponent, // component to render inside the modal
   buttonText, // text of the button that opens the modal
@@ -18,8 +18,8 @@ function OpenModalButton({
   };
 
   return (
-    <button className={`open-modal-button ${fillBackground && "open-modal-button-fill"}`} onClick={onClick}>{buttonText}</button>
+    <button className={`open-landing-page-modal-button ${fillBackground && "open-landing-page-modal-button-fill"}`} onClick={onClick}>{buttonText}</button>
   );
 }
 
-export default OpenModalButton;
+export default OpenLandingPageModalButton;

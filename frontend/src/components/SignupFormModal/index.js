@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
-import "./SignupForm.css";
+import "./SignupFormModal.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -35,77 +35,93 @@ function SignupFormModal() {
 
   return (
     <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          First Name
+      <h1 className="sign-up-modal-h1">Sign Up</h1>
+      <form className="sign-up-modal-form" onSubmit={handleSubmit}>
+        <div>
+          <label>
+            First Name
+          </label>
           <input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Last Name
+        </div>
+        <div>
+          <label>
+            Last Name
+          </label>
           <input
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Email
+        </div>
+        <div>
+          <label>
+            Email
+          </label>
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Username
+        </div>
+        <div>
+          <label>
+            Username
+          </label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-		<label>
-          Profile Image
+        </div>
+        <div>
+          <label>
+            Profile Image
+          </label>
           <input
             type="text"
             value={profileImageUrl}
             onChange={(e) => setProfileImageUrl(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Password
+        </div>
+        <div>
+          <label>
+            Password
+          </label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Confirm Password
+        </div>
+        <div>
+
+          <label>
+            Confirm Password
+          </label>
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </label>
-        <button type="submit">Sign Up</button>
+        </div>
+        <ul>
+          {errors.map((error, idx) => (
+            <li key={idx}>{error}</li>
+          ))}
+        </ul>
+
+        <button className="login-modal-button"  type="submit">Sign Up</button>
       </form>
     </>
   );

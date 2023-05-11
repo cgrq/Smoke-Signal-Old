@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCurrentTeamThunk, getUserTeamsThunk } from "../../store/teams";
 import TeamManagement from "./TeamManagement";
+import { logout } from "../../store/session";
 import SearchNav from "./SearchNav";
 import MessageFeed from "./MessageFeed";
 import MessageInputs from "./MessageInputs";

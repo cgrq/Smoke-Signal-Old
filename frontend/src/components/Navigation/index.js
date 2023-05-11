@@ -24,6 +24,8 @@ function Navigation({ isLoaded }) {
 
   }, [sessionUser]);
 
+  
+
 
   const handleTeamSelect = async (e) => {
     setCurrentTeamId(e.target.value);
