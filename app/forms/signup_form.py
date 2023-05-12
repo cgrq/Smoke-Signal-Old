@@ -2,7 +2,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired, ValidationError, Length
 from app.models import User
-from ..utils import isValidUrl
 import re
 
 
@@ -24,7 +23,7 @@ def username_exists(form, field):
 
 def valid_email(form, field):
     email = field.data
-    valid_email = re.match(r"[A-Za-z0-9!_-]*@[A-Za-z0-9!_-]*.[\w]*", email)
+    valid_email = re.match(r"[A-Za-z0-9!_-]*@[A-Za-z0-9!_-]*\.[\w]*", email)
     if not valid_email:
         raise ValidationError('Please provide a valid email address.')
 

@@ -29,7 +29,11 @@ class User(db.Model, UserMixin):
 
     # Foreign Keys
     teams = db.relationship(TeamMembership, back_populates="users")
-    channels = db.relationship(ChannelMembership, back_populates="users")
+    channels = db.relationship(
+        ChannelMembership, back_populates="users", cascade="all, delete-orphan")
+
+    messages = db.relationship(
+        'Message', back_populates='user', cascade="all, delete-orphan")
 
     @property
     def password(self):

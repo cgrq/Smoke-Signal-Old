@@ -19,7 +19,11 @@ class Team(db.Model):
     image_url = db.Column(db.String(500))
 
     # Foreign Keys
-    users = db.relationship(TeamMembership, back_populates="teams")
+    users = db.relationship(
+        TeamMembership, back_populates="teams", cascade="all, delete-orphan")
+
+    channels = db.relationship(
+        "Channel", back_populates="team", cascade="all, delete-orphan")
 
     # Methods
     def __repr__(self):
