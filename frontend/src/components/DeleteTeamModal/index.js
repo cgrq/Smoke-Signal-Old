@@ -26,10 +26,10 @@ function DeleteTeamModal({ type, title }) {
 
   return (
     <>
-      <h1>Delete this team?</h1>
+      <h1 className="delete-team-modal-h1">Delete this team?</h1>
 
-      <button onClick={handleDelete}>Delete</button>
-      <button onClick={closeModal}>Cancel</button>
+      <button className="delete-team-modal-delete-button" onClick={handleDelete}>Delete</button>
+      <button className="delete-team-modal-button" onClick={closeModal}>Cancel</button>
     </>
   );
 }

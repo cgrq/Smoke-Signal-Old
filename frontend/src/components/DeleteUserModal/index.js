@@ -25,12 +25,9 @@ function DeleteUserModal() {
 
   return (
     <>
-      <h1>Delete your account?</h1>
-
-
-        <button onClick={handleDelete}>Delete</button>
-        <button onClick={closeModal}>Cancel</button>
-
+      <h1 className="delete-user-modal-h1">Delete account?</h1>
+        <button className = "delete-user-modal-delete-button" onClick={handleDelete}>Delete</button>
+        <button className = "delete-user-modal-button" onClick={closeModal}>Cancel</button>
     </>
   );
 }

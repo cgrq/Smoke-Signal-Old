@@ -37,13 +37,13 @@ const DeleteMessage = ({ message }) => {
   };
 
   return (
-    <div>
-      <h1>Are you sure?</h1>
+    <>
+      <h1 className="delete-message-modal-h1">Delete Message?</h1>
 
-      <button onClick={handleYes}>Yes</button>
+      <button className="delete-message-modal-delete-button" onClick={handleYes}>Delete</button>
 
-      <button onClick={handleNo}>No</button>
-    </div>
+      <button className="delete-message-modal-button" onClick={handleNo}>Cancel</button>
+    </>
   );
 };
 

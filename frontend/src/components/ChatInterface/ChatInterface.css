@@ -5,13 +5,15 @@
 /* Main */
 
 .chat-interface-main-wrapper{
-    margin-top:40px !important;
     display:flex;
     flex-flow:row nowrap;
-    margin:0 auto;
-    justify-content: center;
-    /* border-radius: 20px !important;
-    overflow: hidden !important; */
+    padding:30px;
+    width:1400px;
+    margin:40px auto;
+    background-color: rgb(42, 42, 42);
+    justify-content: flex-start;
+    border-radius: 20px !important;
+    overflow: hidden !important;
 }
 .chat-interface-main-wrapper ul li{
     list-style: none;
@@ -27,8 +29,8 @@
 
 
 .chat-interface-main-left-column{
-    padding:30px;
-    width:300px;
+    width:360px;
+    padding-right:30px
 }
 .chat-interface-smoke-signal-wrapper{
     background-color:black;
@@ -64,19 +66,31 @@
 
 
 /* Right Column */
-
-
 .chat-interface-main-right-column{
-    width:1000px;
-
+    width:1200px;
 }
 
-.chat-interface-no-channel-selected-wrapper{
+.chat-interface-message-feed-wrapper{
+    margin-top:10px;
     display:flex;
+    width:100%;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    height:700px;
+}
+.chat-interface-select-channel-wrapper{
+    margin-top:10px;
+    display:flex;
+    width:100%;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
-    height:100%;
+    overflow: hidden;
+    height:800px;
 }
-.chat-interface-no-channel-selected-wrapper h1{
+.chat-interface-message-feed-wrapper h1{
     color:whitesmoke !important;
+    align-self: center;
 }

@@ -5,6 +5,8 @@ import { editMessageThunk } from "../../store/messages";
 import { useModal } from "../../context/Modal";
 import { io } from "socket.io-client";
 import "./EditMessageModal.css";
+import OpenDeleteModalButton from "../OpenDeleteModalButton";
+import DeleteMessage from "../DeleteMessage";
 
 
 let socketio;
@@ -45,6 +47,10 @@ const EditMessageModal = ({ message }) => {
             required={true}
           />
           <button className="login-modal-button" type="submit">Submit</button>
+          <OpenDeleteModalButton
+              buttonText={"Delete"}
+              modalComponent={<DeleteMessage message={message} />}
+            />
         </form>
       </>
       );

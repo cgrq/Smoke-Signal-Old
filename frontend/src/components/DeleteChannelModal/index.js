@@ -27,10 +27,10 @@ function DeleteChannelModal({id }) {
 
   return (
     <>
-      <h1>Delete this channel?</h1>
+      <h1 className="delete-channel-modal-h1">Delete channel?</h1>
 
-        <button onClick={handleDelete}>Delete</button>
-        <button onClick={closeModal}>Cancel</button>
+        <button className="delete-channel-modal-delete-button" onClick={handleDelete}>Delete</button>
+        <button className="delete-channel-modal-button" onClick={closeModal}>Cancel</button>
 
     </>
   );

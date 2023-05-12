@@ -74,22 +74,24 @@ function ChatInterface({ isLoaded }) {
       <div className="chat-interface-main-column chat-interface-main-right-column">
         {/* Nav/Search */}
         <SearchNav isLoaded={isLoaded} sessionUser={sessionUser} />
-        {currentChannel ? (
-          <>
-            {/* Message feed */}
-            <MessageFeed channelId={currentChannel.id} />
-            {/* Message Inputs */}
-            <MessageInputs
-              channelId={currentChannel.id}
-              newMessage={newMessage}
-              setNewMessage={setNewMessage}
-            />
-          </>
-        ) : (
-          <div className="chat-interface-no-channel-selected-wrapper">
+        <div className="chat-interface-message-feed-wrapper">
+          {currentChannel ? (
+            <div className="chat-interface-message-feed-wrapper">
+              {/* Message feed */}
+              <MessageFeed channelId={currentChannel.id} />
+              {/* Message Inputs */}
+              <MessageInputs
+                channelId={currentChannel.id}
+                newMessage={newMessage}
+                setNewMessage={setNewMessage}
+              />
+            </div>
+          ) : (
+            <div className="chat-interface-select-channel-wrapper">
             <h1>Please select a channel</h1>
-          </div>
-        )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

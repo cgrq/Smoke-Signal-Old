@@ -2,7 +2,6 @@
     display:flex;
     justify-content: center;
     align-items: center;
-    padding:5px;
 }
 
 .chat-interface-message-form textarea{
@@ -22,6 +21,7 @@
 }
 .chat-interface-message-inputs-wrapper{
     display:flex;
+    margin-top:15px;
     justify-content: center;
     padding:10px;
 }
