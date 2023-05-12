@@ -53,22 +53,17 @@ function TeamManagement() {
       <div className="chat-interface-create-buttons-wrapper">
         <OpenCreateATeamModalButton
           buttonText="Create a team"
-          modalComponent={
-            <TeamFormModal type="create" title="Create a team" />
-          }
+          modalComponent={<TeamFormModal type="create" title="Create a team" />}
         />
         <OpenCreateNewChannelModalButton
           buttonText={"Create a channel"}
           modalComponent={
-            <ChannelFormModal
-              componentType="create"
-              title="Create a channel"
-            />
-          } />
+            <ChannelFormModal componentType="create" title="Create a channel" />
+          }
+        />
       </div>
 
-
-      {/* <OpenModalButton
+      <OpenModalButton
         buttonText="Create a Channel"
         modalComponent={
           <ChannelFormModal
