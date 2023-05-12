@@ -8,14 +8,6 @@
 .chat-interface-message{
     padding:0 20px;
 }
-.chat-interface-message-button-wrapper{
-    display:flex;
-    align-items: center;
-}
-.chat-interface-message-button-wrapper button{
-    margin:0 !important;
-    margin-left:10px !important;
-}
 
 .chat-interface-message-body{
     background-color: rgb(112, 112, 112);
@@ -25,6 +17,6 @@
 .chat-interface-message-details{
     display:flex;
     width:400px;
-    margin:20px 40px;
+    margin:20px 0;
     justify-content: space-around;
 }

@@ -9,8 +9,10 @@ import {
   getCurrentTeamThunk,
 } from "../../store/teams";
 import InputField from "../InputField";
+
 import OpenDeleteModalButton from "../OpenDeleteModalButton";
 import DeleteTeamModal from "../DeleteTeamModal";
+
 import Button from "../Button";
 import ErrorHandler from "../ErrorHandler";
 import "./TeamFormModal.css";
@@ -60,6 +62,7 @@ function TeamFormModal({ type, title }) {
 
   return (
     <>
+
       <h1 className="team-form-modal-h1">{title}</h1>
       {isGeneral && type !== "create" && (
         <p className="error-p">Cannot Edit/Delete General Channel</p>
@@ -70,6 +73,7 @@ function TeamFormModal({ type, title }) {
           onSubmit={(e) => handleSubmit(e)}
         >
           <ErrorHandler errors={errors} />
+
 
           <InputField
             label="Name"
@@ -87,6 +91,7 @@ function TeamFormModal({ type, title }) {
           required={false}
         /> */}
 
+
           <button className="login-modal-button" type="submit">
             {type === "create" ? "Create " : "Update "}Team
           </button>
@@ -98,6 +103,7 @@ function TeamFormModal({ type, title }) {
           modalComponent={<DeleteTeamModal />}
         />
       )}
+
     </>
   );
 }

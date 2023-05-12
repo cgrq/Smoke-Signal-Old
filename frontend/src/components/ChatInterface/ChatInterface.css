@@ -30,38 +30,10 @@
     padding:30px;
     width:300px;
 }
-.chat-interface-smoke-signal-wrapper{
-    background-color:black;
-    border-radius:40px;
-    height:280px;
-}
 .chat-interface-team-management-wrapper{
     display:flex;
     flex-flow:column;
-    align-items: center;
 }
-
-.chat-iterface-section-divider{
-    margin: 10px 0 !important;
-    padding:0 !important;
-    border-color:rgb(64, 64, 64);
-    width:100px;
-}
-.chat-interface-team-management-wrapper h2{
-    padding:5px;
-    font-weight: 600;
-    margin-bottom:5px;
-    font-family:"Maven Pro";
-    font-size: 16px !important;
-    color:rgb(135, 135, 135) !important;
-}
-.chat-interface-create-buttons-wrapper{
-    margin-top:10px;
-    width:270px;
-    display: flex;
-    justify-content: space-between;
-}
-
 
 /* Right Column */
 
