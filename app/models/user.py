@@ -20,8 +20,8 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(40), nullable=False)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(50), nullable=False, unique=True)
-    hashed_password = db.Column(db.String(200), nullable=False)
-    profile_image_url = db.Column(db.String(50))
+    hashed_password = db.Column(db.String(500), nullable=False)
+    profile_image_url = db.Column(db.String(500))
     status = db.Column(db.String(50))
 
     created_at = db.Column(db.DateTime, default=datetime.now())
