@@ -16,7 +16,7 @@ class Channel(db.Model):
 
     # Table Keys
     name = db.Column(db.String(50), nullable=False)
-    description = db.Column(db.String(100))
+    description = db.Column(db.String(255))
     type = db.Column(db.String(50))
     image_url = db.Column(db.String(500))
 
