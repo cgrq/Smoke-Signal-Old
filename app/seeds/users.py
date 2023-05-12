@@ -18,7 +18,7 @@ def seed_users():
             last_name=u['last_name'],
             email=u['email'],
             password=u['password'],
-            profile_image_url='test.com/images.jpeg',
+            profile_image_url='../test_image.png',
             status=random.choice(['online', 'offline', 'away']),
         )
         db.session.add(user)
