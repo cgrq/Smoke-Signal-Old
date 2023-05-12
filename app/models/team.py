@@ -16,7 +16,7 @@ class Team(db.Model):
 
     # Table Keys
     name = db.Column(db.String(50), nullable=False)
-    image_url = db.Column(db.String(50))
+    image_url = db.Column(db.String(500))
 
     # Foreign Keys
     users = db.relationship(TeamMembership, back_populates="teams")
