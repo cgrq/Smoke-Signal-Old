@@ -37,8 +37,8 @@ const EditMessageModal = ({ message }) => {
 
   return (
     <>
-      <h1 className="edit-message-modal-h1" onSubmit={handleSubmit}>Edit Message</h1>
-        <form className="edit-message-modal-form">
+      <h1 className="edit-message-modal-h1">Edit Message</h1>
+        <form onSubmit={handleSubmit} className="edit-message-modal-form">
           <InputField
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
