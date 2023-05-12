@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCurrentTeamThunk, getUserTeamsThunk } from "../../store/teams";
 import TeamManagement from "./TeamManagement";
-import { logout } from "../../store/session";
+import SmokeSignal from "../SmokeSignal";
 import SearchNav from "./SearchNav";
 import MessageFeed from "./MessageFeed";
 import MessageInputs from "./MessageInputs";
@@ -50,7 +50,9 @@ function ChatInterface({ isLoaded }) {
       {/* Left Column */}
       <div className="chat-interface-main-column chat-interface-main-left-column">
         {/* Logo */}
-        <div></div>
+        <div className="chat-interface-smoke-signal-wrapper">
+          <SmokeSignal />
+        </div>
         {/* Team management*/}
         <TeamManagement />
         {currentTeam && teamChannels && userChannels ? (
@@ -61,10 +63,10 @@ function ChatInterface({ isLoaded }) {
               currentTeamId={currentTeam.id}
             />
             {/* Direct Messages */}
-            <DirectMessageFeed
+            {/* <DirectMessageFeed
               userChannels={userChannels}
               currentTeamId={currentTeam.id}
-            />
+            /> */}
           </>
         ) : null}
       </div>

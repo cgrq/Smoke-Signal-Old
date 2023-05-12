@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { createNewTeamThunk, updateTeamThunk, getAllTeamsThunk,getUserTeamsThunk } from "../../store/teams";
+import { createNewTeamThunk, updateTeamThunk, getAllTeamsThunk, getUserTeamsThunk } from "../../store/teams";
 import InputField from "../InputField";
+import OpenDeleteModalButton from "../OpenDeleteModalButton";
+import DeleteTeamModal from "../DeleteTeamModal"
 import Button from "../Button";
 import ErrorHandler from "../ErrorHandler";
 import "./TeamFormModal.css";
@@ -48,11 +50,11 @@ function TeamFormModal({ type, title }) {
 
   return (
     <>
-      <h1>{title}</h1>
-      <form onSubmit={(e)=>handleSubmit(e)}>
+      <h1 className="team-form-modal-h1">{title}</h1>
+      <form className="team-form-modal-form" onSubmit={(e) => handleSubmit(e)}>
         {Object.values(errors).length > 0 && (
-                  <ErrorHandler errors={errors} />
-                )}
+          <ErrorHandler errors={errors} />
+        )}
 
         <InputField
           label="Name"
@@ -70,9 +72,20 @@ function TeamFormModal({ type, title }) {
           required={false}
         /> */}
 
-        <button type="submit">{type === 'create' ? 'Create ' : 'Update '}Team</button>
+        <button className="login-modal-button" type="submit">{type === 'create' ? 'Create ' : 'Update '}Team</button>
 
       </form>
+      {
+        type === "update" && (
+          <OpenDeleteModalButton
+            buttonText="Delete"
+            modalComponent={
+              <DeleteTeamModal
+              />
+            }
+          />
+        )
+      }
     </>
   );
 }
