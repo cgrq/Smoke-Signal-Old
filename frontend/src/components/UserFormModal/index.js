@@ -76,7 +76,7 @@ function UserFormModal({ componentType }) {
         {componentType === "update" ? "Edit user" : "Sign up"}
       </h1>
       <form className="sign-up-modal-form" onSubmit={handleSubmit}>
-        {Object.values(errors).length > 0 && <ErrorHandler errors={errors} />}
+        <ErrorHandler errors={errors} />
         <div>
           <label>First Name</label>
           <input

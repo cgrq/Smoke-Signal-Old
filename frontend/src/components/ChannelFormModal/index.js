@@ -66,9 +66,14 @@ function ChannelFormModal({ id, componentType, title }) {
 
   return (
     <>
-      <h1>{title}</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        {Object.values(errors).length > 0 && <ErrorHandler errors={errors} />}
+
+      <h1 className="channel-form-modal-h1">{title}</h1>
+      <form
+        className="channel-form-modal-form"
+        onSubmit={(e) => handleSubmit(e)}
+      >
+        <ErrorHandler errors={errors} />
+
 
         <InputField
           label="Name"
@@ -98,6 +103,14 @@ function ChannelFormModal({ id, componentType, title }) {
           {componentType === "create" ? "Create " : "Update "}Channel
         </button>
       </form>
+
+      {componentType === "update" && (
+        <OpenDeleteModalButton
+          buttonText="Delete"
+          modalComponent={<DeleteChannelModal id={id} />}
+        />
+      )}
+
     </>
   );
 }
