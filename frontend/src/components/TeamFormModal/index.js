@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { createNewTeamThunk, updateTeamThunk, getAllTeamsThunk,getUserTeamsThunk } from "../../store/teams";
+import {
+  createNewTeamThunk,
+  updateTeamThunk,
+  getAllTeamsThunk,
+  getUserTeamsThunk,
+  getCurrentTeamThunk,
+} from "../../store/teams";
 import InputField from "../InputField";
 import Button from "../Button";
 import ErrorHandler from "../ErrorHandler";
@@ -9,7 +15,7 @@ import "./TeamFormModal.css";
 
 function TeamFormModal({ type, title }) {
   const dispatch = useDispatch();
-  const currentTeam = useSelector(state => state.teams.currentTeam);
+  const currentTeam = useSelector((state) => state.teams.currentTeam);
   const sessionUser = useSelector((state) => state.session.user);
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -24,35 +30,35 @@ function TeamFormModal({ type, title }) {
   }, [currentTeam]);
 
   useEffect(() => {
-    dispatch(getAllTeamsThunk())
+    dispatch(getAllTeamsThunk());
   }, [currentTeam]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     let data;
-    if (type === 'create') {
+    if (type === "create") {
       data = await dispatch(createNewTeamThunk({ name, imageUrl }));
     } else {
-      data = await dispatch(updateTeamThunk({ id: currentTeam.id, name, imageUrl }));
+      data = await dispatch(
+        updateTeamThunk({ id: currentTeam.id, name, imageUrl })
+      );
     }
 
     if (data) {
       setErrors(data);
     } else {
-      await dispatch(getUserTeamsThunk(sessionUser.id))
+      await dispatch(getUserTeamsThunk(sessionUser.id));
+      await dispatch(getCurrentTeamThunk(currentTeam.id));
       closeModal();
     }
-
   };
 
   return (
     <>
       <h1>{title}</h1>
-      <form onSubmit={(e)=>handleSubmit(e)}>
-        {Object.values(errors).length > 0 && (
-                  <ErrorHandler errors={errors} />
-                )}
+      <form onSubmit={(e) => handleSubmit(e)}>
+        {Object.values(errors).length > 0 && <ErrorHandler errors={errors} />}
 
         <InputField
           label="Name"
@@ -70,8 +76,9 @@ function TeamFormModal({ type, title }) {
           required={false}
         /> */}
 
-        <button type="submit">{type === 'create' ? 'Create ' : 'Update '}Team</button>
-
+        <button type="submit">
+          {type === "create" ? "Create " : "Update "}Team
+        </button>
       </form>
     </>
   );

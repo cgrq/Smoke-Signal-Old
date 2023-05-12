@@ -22,9 +22,15 @@ class Channel(db.Model):
 
     # Foreign Keys
     team_id = db.Column(db.Integer, db.ForeignKey(
-        add_prefix_for_prod("teams.id")), nullable=False)
+        add_prefix_for_prod("teams.id"), ondelete="CASCADE"), nullable=False, )
 
-    users = db.relationship(ChannelMembership, back_populates="channels")
+    team = db.relationship('Team', back_populates="channels")
+
+    users = db.relationship(
+        ChannelMembership, back_populates="channels", cascade="all, delete-orphan")
+
+    messages = db.relationship(
+        'Message', back_populates='channel', cascade="all, delete-orphan")
 
     # Methods
     def to_dict(self):

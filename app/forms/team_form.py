@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
-from wtforms.validators import DataRequired, URL, ValidationError
+from wtforms.validators import DataRequired, ValidationError
 
 
 def short_team_name(form, field):
