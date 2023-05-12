@@ -3,11 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { getTeamChannelsThunk } from "../../store/channels";
 import { getUserTeamsThunk } from "../../store/teams";
 import { getCurrentTeamThunk } from "../../store/teams";
-import OpenCreateNewChannelModalButton from "../OpenCreateNewChannelModalButton";
+
 import SelectTeamField from "../SelectTeamField/Index";
 import OpenModalButton from "../OpenModalButton";
-import OpenEditModalButton from "../OpenEditModalButton";
-import OpenCreateATeamModalButton from "../OpenCreateATeamModalButton";
 import TeamFormModal from "../TeamFormModal";
 import DeleteTeamModal from "../DeleteTeamModal";
 import ChannelFormModal from "../ChannelFormModal";
@@ -42,28 +40,21 @@ function TeamManagement() {
         choices={userTeams}
         placeholder="Choose team"
       />
-      <OpenEditModalButton
-        buttonText="Edit team"
+      <OpenModalButton
+        buttonText="Update current team"
         modalComponent={<TeamFormModal type="update" title="Update team" />}
       />
-      {/* <OpenModalButton
+      <OpenModalButton
         buttonText="Delete current team"
         modalComponent={<DeleteTeamModal />}
-      /> */}
-      <div className="chat-interface-create-buttons-wrapper">
-        <OpenCreateATeamModalButton
-          buttonText="Create a team"
-          modalComponent={<TeamFormModal type="create" title="Create a team" />}
-        />
-        <OpenCreateNewChannelModalButton
-          buttonText={"Create a channel"}
-          modalComponent={
-            <ChannelFormModal componentType="create" title="Create a channel" />
-          }
-        />
-      </div>
-
-      {/* <OpenModalButton
+      />
+      <OpenModalButton
+        buttonText="Create a Team"
+        modalComponent={
+          <TeamFormModal type="create" title="Create a new team" />
+        }
+      />
+      <OpenModalButton
         buttonText="Create a Channel"
         modalComponent={
           <ChannelFormModal
@@ -71,8 +62,8 @@ function TeamManagement() {
             title="Create a new channel"
           />
         }
-      /> */}
-      {/* <OpenModalButton
+      />
+      <OpenModalButton
         buttonText="Create a Direct Message"
         modalComponent={
           <DirectMessageFormModal
@@ -80,7 +71,7 @@ function TeamManagement() {
             title="Send a direct message"
           />
         }
-      /> */}
+      />
     </div>
   );
 }

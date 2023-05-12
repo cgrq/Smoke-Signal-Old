@@ -1,53 +1,76 @@
-import { useDispatch } from "react-redux";
-import InputField from "../InputField";
-import { useEffect, useState } from "react";
-import { editMessageThunk } from "../../store/messages";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { io } from "socket.io-client";
+import { editMessageThunk, getUserMessagesThunk, getChannelMessagesThunk } from "../../store/messages";
+import InputField from "../InputField";
 import "./EditMessageModal.css";
 
-
-let socketio;
-
-const EditMessageModal = ({ message }) => {
+function EditMessageModal({ id, body, username }) {
   const dispatch = useDispatch();
+
+  const currentChannel = useSelector((state) => state.channels.currentChannel)
+  const sessionUser = useSelector((state) => state.session.user);
+
+
+  const [newBody, setNewBody] = useState("");
+  const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-  const [newMessage, setNewMessage] = useState(message.message);
-  const [socket, setSocket] = useState(null);
+
 
   useEffect(() => {
-    socketio = io();
+    if (id) {
+      setNewBody(body);
+    }
+  }, [id])
 
-    setSocket(socketio);
-
-    return () => socketio.disconnect();
-  }, [message.channelId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    message.message = newMessage;
-    message.channelId = message.channel_id;
-    await dispatch(editMessageThunk(message));
+    const newMessage = {
+      id,
+      message: newBody,
+      channelId: currentChannel.id,
+      userId: sessionUser.id
+    };
 
-    socket.emit("message sent", { room: message.channelId });
+    const data = await dispatch(editMessageThunk(newMessage));
 
-    closeModal();
+
+    if (data) {
+      setErrors(data);
+    } else {
+      await dispatch(getUserMessagesThunk)
+      await dispatch(getChannelMessagesThunk)
+
+      closeModal();
+    }
+
   };
 
   return (
     <>
-      <h1 className="edit-message-modal-h1" onSubmit={handleSubmit}>Edit Message</h1>
-        <form className="edit-message-modal-form">
-          <InputField
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            required={true}
-          />
-          <button className="login-modal-button" type="submit">Submit</button>
-        </form>
-      </>
-      );
-};
+      <h1>Edit Message</h1>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <ul>
+          {errors.map((error, idx) => (
+            <li key={idx}>{error}</li>
+          ))}
+        </ul>
 
-      export default EditMessageModal;
+        <InputField
+          label="Message"
+          value={newBody}
+          onChange={(e) => setNewBody(e.target.value)}
+          placeholder="Edit message"
+          required={true}
+        />
+
+        <button type="submit">Edit message</button>
+
+      </form>
+    </>
+  );
+}
+
+export default EditMessageModal;
