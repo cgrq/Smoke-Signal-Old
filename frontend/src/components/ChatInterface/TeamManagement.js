@@ -63,7 +63,7 @@ function TeamManagement() {
           />
         }
       />
-      <OpenModalButton
+      {/* <OpenModalButton
         buttonText="Create a Direct Message"
         modalComponent={
           <DirectMessageFormModal
@@ -71,7 +71,7 @@ function TeamManagement() {
             title="Send a direct message"
           />
         }
-      />
+      /> */}
     </div>
   );
 }
