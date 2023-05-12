@@ -61,10 +61,10 @@ function ChatInterface({ isLoaded }) {
               currentTeamId={currentTeam.id}
             />
             {/* Direct Messages */}
-            <DirectMessageFeed
+            {/* <DirectMessageFeed
               userChannels={userChannels}
               currentTeamId={currentTeam.id}
-            />
+            /> */}
           </>
         ) : null}
       </div>
