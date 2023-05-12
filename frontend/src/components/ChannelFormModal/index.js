@@ -9,6 +9,8 @@ import {
 import ErrorHandler from "../ErrorHandler";
 import InputField from "../InputField";
 import "./ChannelFormModal.css";
+import OpenDeleteModalButton from "../OpenDeleteModalButton";
+import DeleteChannelModal from "../DeleteChannelModal";
 
 function ChannelFormModal({ id, componentType, title }) {
   const dispatch = useDispatch();
@@ -66,14 +68,12 @@ function ChannelFormModal({ id, componentType, title }) {
 
   return (
     <>
-
       <h1 className="channel-form-modal-h1">{title}</h1>
       <form
         className="channel-form-modal-form"
         onSubmit={(e) => handleSubmit(e)}
       >
         <ErrorHandler errors={errors} />
-
 
         <InputField
           label="Name"
@@ -110,7 +110,6 @@ function ChannelFormModal({ id, componentType, title }) {
           modalComponent={<DeleteChannelModal id={id} />}
         />
       )}
-
     </>
   );
 }
