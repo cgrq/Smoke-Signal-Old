@@ -1,12 +1,10 @@
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import "./SelectTeamField.css";
 
 
 function SelectTeamField({ label, value, onChange, choices, placeholder }) {
     return (
         <>
-            <div className="select-team-field-wrapper">
+            <div className="select-team-field-wrapper ">
                 <label className="select-team-field-label">
                     {label}
                 </label>
@@ -14,7 +12,7 @@ function SelectTeamField({ label, value, onChange, choices, placeholder }) {
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}
-                    className="select-team-field"
+                    className="select-team-field clickable"
                 >
                     <option disabled>{placeholder}</option>
                     {choices.map(choice => (

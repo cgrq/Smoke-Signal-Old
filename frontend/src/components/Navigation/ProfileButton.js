@@ -41,7 +41,7 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <>
+    <div className="profile-container">
       <button className="profile-icon-button" onClick={openMenu}>
         <i className="fas fa-user-circle profile-icon" />
       </button>
@@ -51,8 +51,12 @@ function ProfileButton({ user }) {
             user
             && (
               <>
+              <div className="nav-user-name-wrapper">
                 <div>Hello, {user.firstName}</div>
                 <div className="nav-user-email">{user.email}</div>
+
+              </div>
+                <img className="nav-user-img" src={user.profile_image_url}></img>
               </>
             )
           }
@@ -79,10 +83,8 @@ function ProfileButton({ user }) {
           }
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
 export default ProfileButton;
-
-

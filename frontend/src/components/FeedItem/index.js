@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import ChannelFormModal from "../ChannelFormModal";
+import OpenChannelUpdateModalButton from "../OpenChannelUpdateModalButton";
 import DeleteChannelModal from "../DeleteChannelModal";
 import "./FeedItem.css";
 import { getCurrentChannelThunk } from "../../store/channels";
@@ -26,24 +27,22 @@ export default function FeedItem({ channelId, imageSrc, name }) {
   return (
     <>
       <div onClick={onChannelClick} className="feed-item-wrapper clickable">
+      <div className="feed-item-name-wrapper">
         <img src={imageSrc} />
         <p>{name}</p>
       </div>
-      <div>
-        <OpenModalButton
-          buttonText="Edit"
-          modalComponent={
-            <ChannelFormModal
-              id={channelId}
-              componentType="update"
-              title="Update channel"
-            />
-          }
-        />
-        <OpenModalButton
-          buttonText="Delete"
-          modalComponent={<DeleteChannelModal id={channelId} />}
-        />
+        <div>
+          <OpenChannelUpdateModalButton
+            buttonText="Edit"
+            modalComponent={
+              <ChannelFormModal
+                id={channelId}
+                componentType="update"
+                title="Update channel"
+              />
+            }
+          />
+        </div>
       </div>
     </>
   );

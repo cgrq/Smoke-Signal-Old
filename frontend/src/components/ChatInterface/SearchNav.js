@@ -25,7 +25,7 @@ function SearchNav({isLoaded, sessionUser}) {
             <div>
 
             </div>
-            <input />
+            <input onClick={()=>alert("Search and join teams feature coming soon")}/>
             <div>
                 {isLoaded && (
                     <ProfileButton user={sessionUser} />

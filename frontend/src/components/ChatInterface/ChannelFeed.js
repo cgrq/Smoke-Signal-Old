@@ -1,12 +1,16 @@
-import { useSelector, useDispatch } from "react-redux";
 import FeedItem from "../FeedItem";
-import { useEffect } from "react";
+
+import "./ChannelFeed.css"
 
 function ChannelFeed({ teamChannels, currentTeamId }) {
   return (
-    <div>
-      <h3>Channels</h3>
-      <ul>
+    <div className="channel-feed-wrapper">
+      <div className="channel-feed-title-wrapper">
+        <h3>Channels</h3>
+
+      </div>
+
+      <ul className="channel-feed-item-wrapper">
         {Object.values(teamChannels).map(
           (channel) =>
             channel.type === "channel" &&

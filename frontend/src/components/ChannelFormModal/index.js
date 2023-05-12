@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
+import OpenDeleteModalButton from "../OpenDeleteModalButton";
+import DeleteChannelModal from "../DeleteChannelModal";
 import {
   editChannelThunk,
   createChannelThunk,
@@ -14,6 +16,7 @@ function ChannelFormModal({ id, componentType, title }) {
   const dispatch = useDispatch();
 
   const userChannels = useSelector((state) => state.channels.userChannels);
+  const teamChannels = useSelector((state) => state.channels.teamChannels);
   const currentTeamId = useSelector((state) => state.teams.currentTeam.id);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -22,8 +25,8 @@ function ChannelFormModal({ id, componentType, title }) {
   const { closeModal } = useModal();
 
   useEffect(() => {
-    if (componentType === "update" && userChannels) {
-      const channel = userChannels[id];
+    if (componentType === "update" && teamChannels) {
+      const channel = teamChannels[id];
 
       if (channel) {
         setName(channel.name);
@@ -31,7 +34,7 @@ function ChannelFormModal({ id, componentType, title }) {
         setImageUrl(channel.imageUrl);
       }
     }
-  }, [userChannels]);
+  }, [teamChannels]);
 
   useEffect(() => {
     dispatch(getTeamChannelsThunk(currentTeamId));
@@ -66,15 +69,15 @@ function ChannelFormModal({ id, componentType, title }) {
 
   return (
     <>
-      <h1>{title}</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <h1 className="channel-form-modal-h1">{title}</h1>
+      <form className="channel-form-modal-form"  onSubmit={(e) => handleSubmit(e)}>
         {Object.values(errors).length > 0 && <ErrorHandler errors={errors} />}
 
         <InputField
           label="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Channel name"
+          placeholder=""
           required={true}
         />
 
@@ -82,7 +85,7 @@ function ChannelFormModal({ id, componentType, title }) {
           label="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Description"
+          placeholder=""
           required={true}
         />
 
@@ -90,14 +93,26 @@ function ChannelFormModal({ id, componentType, title }) {
           label="Channel Image"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-          placeholder="Optional image"
+          placeholder="Optional"
           required={false}
         />
 
-        <button type="submit">
+        <button className="login-modal-button" type="submit">
           {componentType === "create" ? "Create " : "Update "}Channel
         </button>
       </form>
+      {
+        componentType === "update" && (
+          <OpenDeleteModalButton
+            buttonText="Delete"
+            modalComponent={
+              <DeleteChannelModal
+                id={id}
+              />
+            }
+          />
+        )
+      }
     </>
   );
 }
