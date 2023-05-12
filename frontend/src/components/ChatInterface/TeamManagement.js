@@ -76,7 +76,7 @@ function TeamManagement() {
             title="Create a new channel"
           />
         }
-      /> */}
+      />
       {/* <OpenModalButton
         buttonText="Create a Direct Message"
         modalComponent={
@@ -85,7 +85,7 @@ function TeamManagement() {
             title="Send a direct message"
           />
         }
-      />*/}
+      /> */}
     </div>
   );
 }
